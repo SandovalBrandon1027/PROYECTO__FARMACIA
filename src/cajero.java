@@ -3,11 +3,9 @@ import javax.swing.*;
 public class cajero extends JFrame {
 
     private JPanel interfaz_cajero;
-    private JTextField textField1;
-    private JPasswordField passwordField1;
-    private JButton ingresarButton;
 
-    public cajero() {
+    public
+    cajero() {
         setTitle("Farmacia su economia");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Cierra la aplicación al cerrar este formulario
         setSize(550, 400); // Tamaño del formulario

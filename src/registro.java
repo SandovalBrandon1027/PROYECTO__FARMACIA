@@ -24,6 +24,8 @@ public class registro extends JFrame{
     private Connection con;
 
 
+
+
     public registro(){
         mostrarButton.addActionListener(new ActionListener() {
             @Override
@@ -45,6 +47,16 @@ public class registro extends JFrame{
                 }
             }
         });
+
+
+        setTitle("Farmacia su economia");
+        setContentPane(panel);
+        setMinimumSize(new Dimension(700, 600));
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
+
     }
 
     public void Listar() throws SQLException {
@@ -55,7 +67,8 @@ public class registro extends JFrame{
 
         mod.removeAllElements();
         while (r.next()){
-            mod.addElement(r.getString(1)+" "+r.getString(2)+""+r.getString(3));
+
+            mod.addElement(r.getString(1)+"  ║  "+r.getString(2)+"  ║  "+r.getString(3)+"  ║  "+r.getString(4)+"  ║  "+r.getString(5)+"  ║  "+r.getString(6));
 
         }
 
@@ -89,18 +102,11 @@ public class registro extends JFrame{
     }
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame("registro");
-        registro registroForm = new registro(); // Crear una instancia del formulario
-        frame.setContentPane(registroForm.panel);
-        frame.setMinimumSize(new Dimension(550, 400));
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
-
+        SwingUtilities.invokeLater(() -> {
+            new registro();
+        });
 
     }
-
-
 
     public void conectar(){
         try{

@@ -36,7 +36,7 @@ public class login {
         });
 
         frame.setContentPane(login);
-        frame.setMinimumSize(new Dimension(550, 400));
+        frame.setMinimumSize(new Dimension(700, 600));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setLocationRelativeTo(null);

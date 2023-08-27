@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -9,12 +10,16 @@ public class seleccionar_accion extends JFrame {
     private JButton revisarVentasButton;
     private JButton regresarButton;
 
+
     public seleccionar_accion() {
-        setTitle("Formulario de Administrador");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(600, 400);
-        setLocationRelativeTo(null);
+        setTitle("Farmacia su economia");
         setContentPane(interfaz_administrador);
+        setMinimumSize(new Dimension(700, 600));
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
+
 
 
 
@@ -24,15 +29,17 @@ public class seleccionar_accion extends JFrame {
         ingresarProductoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose(); // Cerrar el formulario actual
+                dispose();// Cerrar el formulario actual
+                registro_productos productos = new registro_productos();
             }
         });
 
         agregarUsuarioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose(); // Cerrar el formulario actual
+                dispose();// Cerrar el formulario actual
                 registro Registro32 = new registro();
+
 
             }
         });
