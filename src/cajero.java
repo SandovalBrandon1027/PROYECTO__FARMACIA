@@ -3,6 +3,11 @@ import javax.swing.*;
 public class cajero extends JFrame {
 
     private JPanel interfaz_cajero;
+    private JTextField textField1;
+    private JTextField textField2;
+    private JTextField textField3;
+    private JButton volverAComprarButton;
+    private JButton pagarButton;
 
     public
     cajero() {
