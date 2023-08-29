@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.table.DefaultTableModel;
 import java.sql.*;
 import java.math.BigDecimal;
 
@@ -19,28 +20,26 @@ public class registro_productos extends JFrame {
     private JButton actualizarButton;
     private JButton guardarButton;
     private JButton mostrarButton;
-    private JList<String> list1;
+    private JTable table1;
     private Connection con;
+
+    private static final String DB_URL = "jdbc:mysql://localhost/FARMACIA";
+    private static final String USER = "root";
+    private static final String PASS = "root_bas3";
+    private static final String QUERY = "SELECT * FROM productos"; // Cambia "tabla_nombre"
 
     public registro_productos() {
         mostrarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    Listar();
-                } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
-                }
+                Mostrar();
+
             }
         });
         guardarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    insertar();
-                } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
-                }
+
             }
         });
 
@@ -52,51 +51,48 @@ public class registro_productos extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
 
-        // Crear y configurar la JList con el modelo personalizado
-        list1.setModel(mod);
 
-        // Agregar el encabezado a la lista
-        mod.addElement("Id        ║        Nombre         ║     Unidades      ║      Precio");
-
-        // ...
     }
 
-    public void Listar() throws SQLException {
-        conectar();
-        st = con.createStatement();
-        r = st.executeQuery("SELECT id, nombre, cantidad, precio FROM productos");
+    public void Mostrar(){
+        //genera columnas de la tabla
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("ID");
+        model.addColumn("Nombre Producto");
+        model.addColumn("Unidades");
+        model.addColumn("Precio");
 
-        mod.removeAllElements();
-        mod.addElement("Id         ║        Nombre         ║  Unidades  ║      Precio");
 
-        while (r.next()) {
-            mod.addElement(
-                    r.getString(1) + "     ║     " + r.getString(2) + "      ║          " + r.getString(3) + "          ║    " + r.getString(4)
-            );
+        // Poner las columnas en el modelo hecho en el Jtable
+        table1.setModel(model);
+
+        //arreglo que almnacena datos
+        String [] informacion=new String[4];//especifico el numero de columnas
+
+        try{
+            Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(QUERY);
+
+            while (rs.next()){
+                //detallo la posicion de dato almacenado en arreglo, con la columna en la quebe ir
+                informacion[0]=rs.getString(1);//num de columna
+                informacion[1]=rs.getString(2);
+                informacion[2]=rs.getString(3);
+                informacion[3]=rs.getString(4);
+
+
+                // genera una fila por cada ingistro
+                model.addRow(informacion);
+            }
+        } catch (SQLException e) {
+            //throw new RuntimeException(e);
+            JOptionPane.showMessageDialog(null,"Error"+e.toString());
         }
     }
 
     public void insertar() throws SQLException {
-        conectar();
-        ps = con.prepareStatement("INSERT INTO productos (id, nombre, cantidad, precio) VALUES (?,?,?,?)");
 
-        int id = Integer.parseInt(IdText.getText());
-        String nombre = NombreText.getText();
-        int unidades = Integer.parseInt(UnidadesText.getText());
-        BigDecimal precioDecimal = new BigDecimal(PrecioText.getText());
-
-        ps.setInt(1, id);
-        ps.setString(2, nombre);
-        ps.setInt(3, unidades);
-        ps.setBigDecimal(4, precioDecimal);
-
-        if (ps.executeUpdate() > 0) {
-            Listar(); // Actualizar la lista después de la inserción
-            IdText.setText("");
-            NombreText.setText("");
-            UnidadesText.setText("");
-            PrecioText.setText("");
-        }
 
         // Cerrar recursos (PreparedStatement y Connection) aquí si es necesario
     }
@@ -107,12 +103,5 @@ public class registro_productos extends JFrame {
         });
     }
 
-    public void conectar() {
-        try {
-            con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/usuarios", "root", "");
-            System.out.println("Conectado");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
+
 }
