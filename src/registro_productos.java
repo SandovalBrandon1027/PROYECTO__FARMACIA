@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.table.DefaultTableModel;
 import java.sql.*;
-import java.math.BigDecimal;
 
 public class registro_productos extends JFrame {
     PreparedStatement ps;
@@ -21,6 +20,7 @@ public class registro_productos extends JFrame {
     private JButton guardarButton;
     private JButton mostrarButton;
     private JTable table1;
+    private JButton regresarButton;
     private Connection con;
 
     private static final String DB_URL = "jdbc:mysql://localhost/FARMACIA";
@@ -45,13 +45,20 @@ public class registro_productos extends JFrame {
 
         setTitle("Farmacia su economia");
         setContentPane(lista_productos);
-        setMinimumSize(new Dimension(700, 600));
+        setMinimumSize(new Dimension(650, 300));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
 
 
+        regresarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                seleccionar_accion seleccionar2 = new seleccionar_accion();
+            }
+        });
     }
 
     public void Mostrar(){

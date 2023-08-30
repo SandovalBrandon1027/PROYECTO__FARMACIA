@@ -26,6 +26,7 @@ public class Registro1 extends JFrame{
     private JButton elminarButton;
     private JButton actualizarButton;
     private JTable table1;
+    private JButton regresarButton;
     private Connection con;
     DefaultTableModel mod=new DefaultTableModel();
     private static final String DB_URL = "jdbc:mysql://localhost/FARMACIA";
@@ -59,12 +60,19 @@ public class Registro1 extends JFrame{
 
         setTitle("Farmacia su economia");
         setContentPane(panel);
-        setMinimumSize(new Dimension(700, 600));
+        setMinimumSize(new Dimension(650, 300));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
 
+        regresarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                seleccionar_accion seleccionar = new seleccionar_accion();
+            }
+        });
     }
 
 

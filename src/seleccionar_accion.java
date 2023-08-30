@@ -15,7 +15,7 @@ public class seleccionar_accion extends JFrame {
     public seleccionar_accion() {
         setTitle("Farmacia su economia");
         setContentPane(interfaz_administrador);
-        setMinimumSize(new Dimension(700, 600));
+        setMinimumSize(new Dimension(600, 500));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setLocationRelativeTo(null);
