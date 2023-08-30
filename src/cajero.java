@@ -16,6 +16,7 @@ public class cajero extends JFrame {
     private JTable table1;
     private JButton buscarButton;
     private JButton mostrarButton;
+    private JButton calcularPrecioButton;
     private static final String DB_URL = "jdbc:mysql://localhost/FARMACIA";
     private static final String USER = "root";
     private static final String PASS = "";
@@ -26,7 +27,7 @@ public class cajero extends JFrame {
         Mostrar();
         setTitle("Farmacia su economia");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Cierra la aplicación al cerrar este formulario
-        setSize(850, 500); // Tamaño del formulario
+        setSize(900, 500); // Tamaño del formulario
         setLocationRelativeTo(null); // Centrar en la pantalla
         setContentPane(interfaz_cajero); // Establecer el panel como contenido
 
@@ -68,6 +69,30 @@ public class cajero extends JFrame {
                 Mostrar();
             }
         });
+        calcularPrecioButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int filaSeleccionada = table1.getSelectedRow();
+                if (filaSeleccionada != -1) {
+                    String cantidadStr = CantidadText.getText().trim();
+                    if (!cantidadStr.isEmpty()) {
+                        try {
+                            double cantidad = Double.parseDouble(cantidadStr);
+                            double precio = Double.parseDouble(table1.getValueAt(filaSeleccionada, 3).toString());
+                            double total = cantidad * precio;
+                            PrecioText.setText(String.valueOf(total));
+                        } catch (NumberFormatException ex) {
+                            JOptionPane.showMessageDialog(null, "Ingresa una cantidad válida.");
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Ingresa la cantidad.");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Selecciona un producto de la tabla.");
+                }
+            }
+        });
+
     }
     public void Mostrar(){
         //genera columnas de la tabla
@@ -80,6 +105,7 @@ public class cajero extends JFrame {
 
         // Poner las columnas en el modelo hecho en el Jtable
         table1.setModel(model);
+        table1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         //arreglo que almnacena datos
         String [] informacion=new String[4];//especifico el numero de columnas
