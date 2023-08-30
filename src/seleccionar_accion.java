@@ -1,4 +1,3 @@
-import Codigos.registro;
 
 import javax.swing.*;
 import java.awt.*;
@@ -40,7 +39,7 @@ public class seleccionar_accion extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();// Cerrar el formulario actual
-                registro Registro32 = new registro();
+                Registro1 Registro32 = new Registro1();
 
 
             }

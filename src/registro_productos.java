@@ -25,7 +25,7 @@ public class registro_productos extends JFrame {
 
     private static final String DB_URL = "jdbc:mysql://localhost/FARMACIA";
     private static final String USER = "root";
-    private static final String PASS = "root_bas3";
+    private static final String PASS = "";
     private static final String QUERY = "SELECT * FROM productos"; // Cambia "tabla_nombre"
 
     public registro_productos() {
