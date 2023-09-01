@@ -31,7 +31,7 @@ public class Registro1 extends JFrame{
     DefaultTableModel mod=new DefaultTableModel();
     private static final String DB_URL = "jdbc:mysql://localhost/FARMACIA";
     private static final String USER = "root";
-    private static final String PASS = "";
+    private static final String PASS = "root_bas3";
     private static final String QUERY = "SELECT * FROM usuarios"; // Cambia "tabla_nombre"
 
 
@@ -58,9 +58,9 @@ public class Registro1 extends JFrame{
         });
 
 
-        setTitle("Farmacia su economia");
+        setTitle("Farmacia Estelar");
         setContentPane(panel);
-        setMinimumSize(new Dimension(650, 300));
+        setMinimumSize(new Dimension(700, 500));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setLocationRelativeTo(null);

@@ -13,9 +13,9 @@ public class seleccionar_accion extends JFrame {
 
 
     public seleccionar_accion() {
-        setTitle("Farmacia su economia");
+        setTitle("Farmacia Estelar");
         setContentPane(interfaz_administrador);
-        setMinimumSize(new Dimension(600, 500));
+        setMinimumSize(new Dimension(700, 500));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setLocationRelativeTo(null);

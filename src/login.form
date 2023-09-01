@@ -1,29 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="login">
-  <grid id="27dc6" binding="login" layout-manager="GridLayoutManager" row-count="5" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="login" layout-manager="GridLayoutManager" row-count="5" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="2" vgap="2">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="510" height="436"/>
+      <xy x="20" y="20" width="684" height="436"/>
     </constraints>
-    <properties/>
-    <border type="none"/>
+    <properties>
+      <background color="-9918789"/>
+      <enabled value="false"/>
+      <foreground color="-4934725"/>
+    </properties>
+    <border type="bevel-lowered">
+      <font/>
+      <title-color color="-5131845"/>
+    </border>
     <children>
       <component id="114c5" class="javax.swing.JLabel">
         <constraints>
           <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <horizontalAlignment value="0"/>
           <icon value="farmacia (1).png"/>
+          <labelFor value=""/>
           <text value=""/>
+          <verticalAlignment value="0"/>
         </properties>
       </component>
       <component id="a5832" class="javax.swing.JLabel">
         <constraints>
-          <grid row="0" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <font name="Arial Black" size="24" style="1"/>
-          <text value="Farmacia su economia"/>
+          <font name="Arial Black" size="26" style="1"/>
+          <text value="Farmacia Estelar"/>
         </properties>
       </component>
       <component id="aabda" class="javax.swing.JLabel">
@@ -31,7 +41,7 @@
           <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <font name="Arial Black" size="18" style="1"/>
+          <font name="Arial Rounded MT Bold" size="18" style="1"/>
           <text value="Elija un usuario:"/>
         </properties>
       </component>
@@ -40,7 +50,7 @@
           <grid row="1" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <font name="Arial Black" size="18" style="1"/>
+          <font name="Arial Rounded MT Bold" size="18" style="0"/>
           <model>
             <item value="Administrador"/>
             <item value="Cajero"/>
@@ -52,7 +62,7 @@
           <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <font name="Arial Black" size="18" style="1"/>
+          <font name="Arial Rounded MT Bold" size="18" style="1"/>
           <text value="Usuario:"/>
         </properties>
       </component>
@@ -61,7 +71,7 @@
           <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <font name="Arial Black" size="18" style="1"/>
+          <font name="Arial Rounded MT Bold" size="18" style="1"/>
           <text value="Contraseña:"/>
         </properties>
       </component>
@@ -71,7 +81,9 @@
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <font name="Arial Rounded MT Bold" size="18" style="0"/>
+        </properties>
       </component>
       <component id="9bfa8" class="javax.swing.JPasswordField" binding="contraseña">
         <constraints>
@@ -79,7 +91,9 @@
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <font name="Arial Rounded MT Bold" size="18" style="0"/>
+        </properties>
       </component>
       <component id="95a16" class="javax.swing.JButton" binding="ingresarButton" default-binding="true">
         <constraints>

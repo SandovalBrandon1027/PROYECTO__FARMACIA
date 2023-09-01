@@ -12,7 +12,7 @@ public class login {
     private JFrame frame;
 
     public login() {
-        frame = new JFrame("iinterfaz_1");
+        frame = new JFrame("Farmacia Estelar");
 
         ingresarButton.addActionListener(new ActionListener() {
             @Override
@@ -36,7 +36,7 @@ public class login {
         });
 
         frame.setContentPane(login);
-        frame.setMinimumSize(new Dimension(600, 500));
+        frame.setMinimumSize(new Dimension(700, 500));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setLocationRelativeTo(null);
@@ -44,7 +44,7 @@ public class login {
     }
 
     private void abrirCajeroForm() {
-        cajero cajeroForm = new cajero();
+        seleccionar_cajero cajeroForm = new seleccionar_cajero();
     }
 
     private void abrirAdministradorForm() {
@@ -59,5 +59,7 @@ public class login {
             }
         });
     }
+
+
     //hola
 }
