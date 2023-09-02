@@ -44,7 +44,7 @@ public class login {
     }
 
     private void abrirCajeroForm() {
-        seleccionar_cajero cajeroForm = new seleccionar_cajero();
+        cajero cajero12 = new cajero();
     }
 
     private void abrirAdministradorForm() {

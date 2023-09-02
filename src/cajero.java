@@ -19,7 +19,7 @@ public class cajero extends JFrame {
     private JButton calcularPrecioButton;
     private static final String DB_URL = "jdbc:mysql://localhost/FARMACIA";
     private static final String USER = "root";
-    private static final String PASS = "root_bas3";
+    private static final String PASS = "";
     private static final String QUERY = "SELECT * FROM productos";
 
     public
@@ -93,6 +93,13 @@ public class cajero extends JFrame {
             }
         });
 
+        pagarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                Registro1 factura = new Registro1();
+            }
+        });
     }
     public void Mostrar(){
         //genera columnas de la tabla

@@ -27,11 +27,14 @@ public class Registro1 extends JFrame{
     private JButton actualizarButton;
     private JTable table1;
     private JButton regresarButton;
+    private JButton facturaButton;
     private Connection con;
+    private int filaSeleccionada = -1;
+
     DefaultTableModel mod=new DefaultTableModel();
     private static final String DB_URL = "jdbc:mysql://localhost/FARMACIA";
     private static final String USER = "root";
-    private static final String PASS = "root_bas3";
+    private static final String PASS = "";
     private static final String QUERY = "SELECT * FROM usuarios"; // Cambia "tabla_nombre"
 
 
@@ -56,6 +59,34 @@ public class Registro1 extends JFrame{
 
             }
         });
+
+
+        table1.getSelectionModel().addListSelectionListener(e -> {
+            filaSeleccionada = table1.getSelectedRow();
+
+            // Verificar si se ha seleccionado una fila
+            if (filaSeleccionada >= 0) {
+                // Obtener los valores de la fila seleccionada
+                String idUsuario = table1.getValueAt(filaSeleccionada, 0).toString();
+                String nombre = table1.getValueAt(filaSeleccionada, 1).toString();
+                String apellido = table1.getValueAt(filaSeleccionada, 2).toString();
+                String direccion = table1.getValueAt(filaSeleccionada, 3).toString();
+                String email = table1.getValueAt(filaSeleccionada, 4).toString();
+                String telefono = table1.getValueAt(filaSeleccionada, 5).toString();
+
+                // Establecer los valores en los JTextField
+                DNItext.setText(idUsuario);
+                NombreText.setText(nombre);
+                ApellidoText.setText(apellido);
+                DireccionText.setText(direccion);
+                EmailText.setText(email);
+                TelefonoText.setText(telefono);
+            }
+        });
+
+
+
+
 
 
         setTitle("Farmacia Estelar");
