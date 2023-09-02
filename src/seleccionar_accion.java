@@ -57,6 +57,13 @@ public class seleccionar_accion extends JFrame {
         setVisible(true); // Mostrar el formularioç
 
 
+        revisarVentasButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                mostrar_factura mostrar = new mostrar_factura();
+            }
+        });
     }
 
     public static void main(String[] args) {

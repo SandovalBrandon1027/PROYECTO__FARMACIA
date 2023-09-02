@@ -98,9 +98,52 @@ public class cajero extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 dispose();
                 Registro1 factura = new Registro1();
+                // Dentro del ActionListener del botón "Pagar"
+                int filaSeleccionada = table1.getSelectedRow();
+                if (filaSeleccionada != -1) {
+                    try {
+                        int idProducto = Integer.parseInt(table1.getValueAt(filaSeleccionada, 0).toString());
+                        int cantidadComprada = Integer.parseInt(CantidadText.getText().trim());
+
+                        // Llama al método para actualizar las unidades
+                        actualizarUnidades(idProducto, cantidadComprada);
+
+                        // Luego, procede a crear la factura y realizar otras operaciones necesarias.
+                    } catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(null, "Ingresa una cantidad válida.");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Selecciona un producto de la tabla.");
+                }
+
             }
+
         });
     }
+    public void actualizarUnidades(int idProducto, int cantidadComprada) {
+        String updateQuery = "UPDATE productos SET Unidades = Unidades - ? WHERE ID = ?";
+
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            PreparedStatement pstmt = conn.prepareStatement(updateQuery);
+            pstmt.setInt(1, cantidadComprada);
+            pstmt.setInt(2, idProducto);
+
+            int rowsAffected = pstmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                JOptionPane.showMessageDialog(null, "Compra exitosa. Unidades actualizadas.");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo actualizar la cantidad de unidades.");
+            }
+
+            pstmt.close();
+            conn.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al actualizar las unidades: " + ex.toString());
+        }
+    }
+
     public void Mostrar(){
         //genera columnas de la tabla
         DefaultTableModel model = new DefaultTableModel();

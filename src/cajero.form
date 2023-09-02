@@ -87,7 +87,7 @@
         </constraints>
         <properties>
           <font name="Arial Rounded MT Bold" size="18" style="0"/>
-          <text value="Volver a comprar"/>
+          <text value="Seguir comprando"/>
         </properties>
       </component>
       <component id="c912f" class="javax.swing.JButton" binding="pagarButton" default-binding="true">
