@@ -5,44 +5,30 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-
-public class Registro1 extends JFrame{
-    PreparedStatement ps;
-
-    Statement st;
-    ResultSet r;
-    private JPanel panel;
-    private JTextField DNItext;
+public class registro_factura extends  JFrame{
+    private JPanel factura_cajero;
+    private JTextField CodigoText;
+    private JTextField DNIText;
     private JTextField NombreText;
     private JTextField DireccionText;
     private JTextField EmailText;
     private JTextField TelefonoText;
     private JButton mostrarButton;
     private JButton guardarButton;
-    private JButton elminarButton;
     private JButton actualizarButton;
-    private JTable table1;
-    private JButton regresarButton;
     private JButton facturaButton;
-    private JTextField CodigoText;
-    private Connection con;
+    private JTable table1;
+    private JButton atrasbutton;
     private int filaSeleccionada = -1;
-
     DefaultTableModel mod=new DefaultTableModel();
     private static final String DB_URL = "jdbc:mysql://localhost/FARMACIA";
     private static final String USER = "root";
     private static final String PASS = "";
-    private static final String QUERY = "SELECT * FROM usuarios"; // Cambia "tabla_nombre"
+    private static final String QUERY = "SELECT * FROM usuarios";
 
-
-
-
-
-
-    public Registro1(){
+    public registro_factura(){
 
 
         mostrarButton.addActionListener(new ActionListener() {
@@ -76,7 +62,7 @@ public class Registro1 extends JFrame{
 
                 // Establecer los valores en los JTextField
                 CodigoText.setText(codigo);
-                DNItext.setText(idUsuario);
+                DNIText.setText(idUsuario);
                 NombreText.setText(nombre);
                 DireccionText.setText(direccion);
                 EmailText.setText(email);
@@ -90,18 +76,18 @@ public class Registro1 extends JFrame{
 
 
         setTitle("Farmacia Estelar");
-        setContentPane(panel);
+        setContentPane(factura_cajero);
         setMinimumSize(new Dimension(700, 500));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
 
-        regresarButton.addActionListener(new ActionListener() {
+        atrasbutton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                seleccionar_accion seleccionar = new seleccionar_accion();
+                cajero facturara = new cajero();
             }
         });
     }
@@ -111,9 +97,9 @@ public class Registro1 extends JFrame{
     public void Mostrar(){
         //genera columnas de la tabla
         DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Codigo");
         model.addColumn("IdUsuario");
         model.addColumn("Nombre");
-        model.addColumn("Apellido");
         model.addColumn("Direccion");
         model.addColumn("Email");
         model.addColumn("Telefono");
@@ -157,10 +143,8 @@ public class Registro1 extends JFrame{
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            new Registro1();
+            new registro_factura();
         });
 
     }
-
-
 }

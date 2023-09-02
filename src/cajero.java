@@ -97,7 +97,7 @@ public class cajero extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                Registro1 factura = new Registro1();
+                registro_factura factura = new registro_factura();
             }
         });
     }
