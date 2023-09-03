@@ -9,6 +9,8 @@ public class login {
     private JTextField usuario;
     private JPasswordField contraseña;
     private JButton ingresarButton;
+    private JLabel user;
+    private JLabel pass;
     private JFrame frame;
 
     public login() {
@@ -22,6 +24,7 @@ public class login {
                 String contraseñaText = new String(contraseña.getPassword());
 
                 // Aquí deberías realizar la autenticación y verificar las credenciales
+
                 // Luego, dependiendo del tipo de usuario, abres la ventana correspondiente
 
                 if (selectedTipo.equals("Administrador")) {
@@ -41,6 +44,24 @@ public class login {
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+        Tipo_usuario.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selectedRole = (String) Tipo_usuario.getSelectedItem();
+                if (selectedRole.equals("Cajero")) {
+                    usuario.setVisible(false);
+                    contraseña.setVisible(false);
+                    user.setVisible(false);
+                    pass.setVisible(false);
+
+                } else {
+                    usuario.setVisible(true);
+                    contraseña.setVisible(true);
+                    user.setVisible(true);
+                    pass.setVisible(true);
+                }
+            }
+        });
     }
 
     private void abrirCajeroForm() {
