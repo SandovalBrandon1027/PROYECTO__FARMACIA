@@ -17,7 +17,7 @@ public class cajero extends JFrame {
     private JButton buscarButton;
     private JButton mostrarButton;
     private JButton calcularPrecioButton;
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/FARMACIA";
+    private static final String DB_URL = "jdbc:mysql://localhost/FARMACIA";
     private static final String USER = "root";
     private static final String PASS = "";
     private static final String QUERY = "SELECT * FROM PRODUCTOS";
