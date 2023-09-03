@@ -21,6 +21,7 @@ public class registro_factura extends  JFrame{
     private JButton facturaButton;
     private JTable table1;
     private JButton atrasbutton;
+    private JTextField Apellido;
     private int filaSeleccionada = -1;
     DefaultTableModel mod=new DefaultTableModel();
     private static final String DB_URL = "jdbc:mysql://localhost/FARMACIA";
