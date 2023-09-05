@@ -16,11 +16,11 @@ public class mostrar_factura extends JFrame {
     private static final String DB_URL = "jdbc:mysql://localhost/FARMACIA";
     private static final String USER = "root";
     private static final String PASS = "";
-    private static final String QUERY = "SELECT * FROM usuarios"; // Cambia "tabla_nombre"
+    private static final String QUERY = "SELECT * FROM FACTURAS"; // Cambia "tabla_nombre"
 
     public mostrar_factura(){
         Mostrar();
-        setTitle("Farmacia su economia");
+        setTitle("Farmacia Estelar");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Cierra la aplicación al cerrar este formulario
         setSize(900, 500); // Tamaño del formulario
         setLocationRelativeTo(null); // Centrar en la pantalla
@@ -40,14 +40,19 @@ public class mostrar_factura extends JFrame {
     }
 
     public void Mostrar(){
-        //genera columnas de la tabla
+        //genera columnas de la tabla //Codigo, DNI, Nombre, Apellido, Direccion, Email, Telefono, ID, NombreProd, Unidades, Precio
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("Codigo");
         model.addColumn("DNI");
         model.addColumn("Nombre");
         model.addColumn("Direccion");
+        model.addColumn("Apellido");
         model.addColumn("Email");
-        model.addColumn("telefono");
+        model.addColumn("Telefono");
+        model.addColumn("ID");
+        model.addColumn("NombreProd");
+        model.addColumn("Unidades");
+        model.addColumn("Precio");
 
 
         // Poner las columnas en el modelo hecho en el Jtable
@@ -55,7 +60,7 @@ public class mostrar_factura extends JFrame {
         table1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         //arreglo que almnacena datos
-        String [] informacion=new String[6];//especifico el numero de columnas
+        String [] informacion=new String[11];//especifico el numero de columnas
 
         try{
             Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -70,6 +75,11 @@ public class mostrar_factura extends JFrame {
                 informacion[3]=rs.getString(4);
                 informacion[4]=rs.getString(5);
                 informacion[5]=rs.getString(6);
+                informacion[6]=rs.getString(7);
+                informacion[7]=rs.getString(8);
+                informacion[8]=rs.getString(9);
+                informacion[9]=rs.getString(10);
+                informacion[10]=rs.getString(11);
 
 
 
