@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.sql.*;
 
 public class cajero extends JFrame {
-
     private JPanel interfaz_cajero;
     private JTextField NombreText;
     private JTextField CantidadText;
@@ -22,10 +21,9 @@ public class cajero extends JFrame {
     private static final String PASS = "";
     private static final String QUERY = "SELECT * FROM PRODUCTOS";
 
-    public
-    cajero() {
+    public cajero() {
         Mostrar();
-        setTitle("Farmacia su economia");
+        setTitle("Farmacia Estelar");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Cierra la aplicación al cerrar este formulario
         setSize(900, 500); // Tamaño del formulario
         setLocationRelativeTo(null); // Centrar en la pantalla
@@ -97,7 +95,7 @@ public class cajero extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                Registro1 factura = new Registro1();
+                registro_factura factura = new registro_factura();
                 // Dentro del ActionListener del botón "Pagar"
                 int filaSeleccionada = table1.getSelectedRow();
                 if (filaSeleccionada != -1) {

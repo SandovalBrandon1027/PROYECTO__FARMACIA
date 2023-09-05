@@ -3,6 +3,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
 import java.sql.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -21,13 +22,13 @@ public class registro_factura extends  JFrame{
     private JButton facturaButton;
     private JTable table1;
     private JButton atrasbutton;
-    private JTextField Apellido;
+    private JTextField ApellidoText;
     private int filaSeleccionada = -1;
     DefaultTableModel mod=new DefaultTableModel();
     private static final String DB_URL = "jdbc:mysql://localhost/FARMACIA";
     private static final String USER = "root";
     private static final String PASS = "";
-    private static final String QUERY = "SELECT * FROM usuarios";
+    private static final String QUERY = "SELECT * FROM USUARIOS";
 
     public registro_factura(){
 
@@ -43,7 +44,6 @@ public class registro_factura extends  JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
 
-
             }
         });
 
@@ -53,21 +53,22 @@ public class registro_factura extends  JFrame{
 
             // Verificar si se ha seleccionado una fila
             if (filaSeleccionada >= 0) {
-                // Obtener los valores de la fila seleccionada
-                String codigo = table1.getValueAt(filaSeleccionada, 0).toString();
-                String idUsuario = table1.getValueAt(filaSeleccionada, 1).toString();
-                String nombre = table1.getValueAt(filaSeleccionada, 2).toString();
-                String direccion = table1.getValueAt(filaSeleccionada, 3).toString();
-                String email = table1.getValueAt(filaSeleccionada, 4).toString();
-                String telefono = table1.getValueAt(filaSeleccionada, 5).toString();
+                // Obtener los valores de la fila seleccionada DNI, Nombre, Apellido, Direccion, Email, Telefono
+                String DNI = table1.getValueAt(filaSeleccionada, 0).toString();
+                String Nombre = table1.getValueAt(filaSeleccionada, 1).toString();
+                String Apellido = table1.getValueAt(filaSeleccionada, 2).toString();
+                String Direccion = table1.getValueAt(filaSeleccionada, 3).toString();
+                String Email = table1.getValueAt(filaSeleccionada, 4).toString();
+                String Telefono = table1.getValueAt(filaSeleccionada, 5).toString();
 
                 // Establecer los valores en los JTextField
-                CodigoText.setText(codigo);
-                DNIText.setText(idUsuario);
-                NombreText.setText(nombre);
-                DireccionText.setText(direccion);
-                EmailText.setText(email);
-                TelefonoText.setText(telefono);
+                CodigoText.setText("");
+                DNIText.setText(DNI);
+                NombreText.setText(Nombre);
+                ApellidoText.setText(Apellido);
+                DireccionText.setText(Direccion);
+                EmailText.setText(Email);
+                TelefonoText.setText(Telefono);
             }
         });
 
@@ -91,16 +92,18 @@ public class registro_factura extends  JFrame{
                 cajero facturara = new cajero();
             }
         });
+        table1.addComponentListener(new ComponentAdapter() {
+        });
     }
 
 
 
     public void Mostrar(){
-        //genera columnas de la tabla
+        //genera columnas de la tabla DNI, Nombre, Apellido, Direccion, Email, Telefono
         DefaultTableModel model = new DefaultTableModel();
-        model.addColumn("Codigo");
-        model.addColumn("IdUsuario");
+        model.addColumn("DNI");
         model.addColumn("Nombre");
+        model.addColumn("Apellidotexto");
         model.addColumn("Direccion");
         model.addColumn("Email");
         model.addColumn("Telefono");
@@ -109,7 +112,7 @@ public class registro_factura extends  JFrame{
         table1.setModel(model);
 
         //arreglo que almnacena datos
-        String [] informacion=new String[6];//especifico el numero de columnas
+        String [] informacion=new String[7];//especifico el numero de columnas
 
         try{
             Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);

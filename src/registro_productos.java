@@ -26,7 +26,7 @@ public class registro_productos extends JFrame {
     private static final String DB_URL = "jdbc:mysql://localhost/FARMACIA";
     private static final String USER = "root";
     private static final String PASS = "";
-    private static final String QUERY = "SELECT * FROM productos"; // Cambia "tabla_nombre"
+    private static final String QUERY = "SELECT * FROM PRODUCTOS"; // Cambia "tabla_nombre"
 
     public registro_productos() {
         mostrarButton.addActionListener(new ActionListener() {
@@ -59,7 +59,7 @@ public class registro_productos extends JFrame {
                 seleccionar_accion seleccionar2 = new seleccionar_accion();
             }
         });
-    }
+        }
 
     public void Mostrar(){
         //genera columnas de la tabla
