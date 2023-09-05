@@ -1,12 +1,21 @@
+import com.itextpdf.text.*;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.sql.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
+
 
 public class registro_factura extends  JFrame{
     private JPanel factura_cajero;
@@ -46,6 +55,12 @@ public class registro_factura extends  JFrame{
 
             }
         });
+        facturaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                generarFacturaPDF();
+            }
+        });
 
 
         table1.getSelectionModel().addListSelectionListener(e -> {
@@ -63,7 +78,6 @@ public class registro_factura extends  JFrame{
 
                 // Establecer los valores en los JTextField
                 CodigoText.setText("");
-                DNIText.setText(DNI);
                 NombreText.setText(Nombre);
                 ApellidoText.setText(Apellido);
                 DireccionText.setText(Direccion);
@@ -135,6 +149,65 @@ public class registro_factura extends  JFrame{
         } catch (SQLException e) {
             //throw new RuntimeException(e);
             JOptionPane.showMessageDialog(null,"Error"+e.toString());
+        }
+    }
+    public void generarFacturaPDF() {
+        // Obtén los datos de la factura
+        String nombreCliente = NombreText.getText();
+        String direccionCliente = DireccionText.getText();
+        String emailCliente = EmailText.getText();
+        String telefonoCliente = TelefonoText.getText();
+        String ID = DNIText.getText(); // Agrega aquí el ID del producto
+        String nombre = NombreText.getText(); // Agrega aquí el nombre del producto
+
+        // Crea un documento PDF
+        Document document = new Document();
+        try {
+            PdfWriter.getInstance(document, new FileOutputStream("factura1.pdf"));
+            document.open();
+
+            // Agrega el contenido de la factura al documento
+            Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
+            Chunk chunk = new Chunk("FACTURA DE COMPRA\n\n", font);
+            document.add(chunk);
+
+            PdfPTable table = new PdfPTable(2);
+            table.setWidthPercentage(100);
+
+            PdfPCell cell;
+
+            cell = new PdfPCell(new Phrase("Cliente"));
+            cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Phrase("Detalle"));
+            cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(cell);
+
+
+            table.addCell("Nombre del Cliente:");
+            table.addCell(nombreCliente);
+            table.addCell("Dirección del Cliente:");
+            table.addCell(direccionCliente);
+            table.addCell("Email del Cliente:");
+            table.addCell(emailCliente);
+            table.addCell("Teléfono del Cliente:");
+            table.addCell(telefonoCliente);
+            table.addCell("ID del Producto:");
+            table.addCell(ID);
+            table.addCell("Nombre del Producto:");
+            table.addCell(nombre);
+
+            document.add(table);
+
+            // Cierra el documento
+            document.close();
+
+            JOptionPane.showMessageDialog(null, "Factura generada con éxito.");
+
+        } catch (DocumentException | FileNotFoundException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al generar la factura.");
         }
     }
 

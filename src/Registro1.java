@@ -109,12 +109,7 @@ public class Registro1 extends JFrame{
                 seleccionar_accion seleccionar = new seleccionar_accion();
             }
         });
-        facturaButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                generarFacturaPDF();
-            }
-        });
+
     }
 
 
@@ -156,72 +151,6 @@ public class Registro1 extends JFrame{
         } catch (SQLException e) {
             //throw new RuntimeException(e);
             JOptionPane.showMessageDialog(null,"Error"+e.toString());
-        }
-    }
-
-    public void generarFacturaPDF() {
-        // Obtén los datos de la factura
-        String dniCliente = DNItext.getText();
-        String nombreCliente = NombreText.getText();
-        String direccionCliente = DireccionText.getText();
-        String emailCliente = EmailText.getText();
-        String telefonoCliente = TelefonoText.getText();
-        String ID = ""; // Agrega aquí el ID del producto
-        String nombre = ""; // Agrega aquí el nombre del producto
-        String unidades = ""; // Agrega aquí la cantidad de unidades
-
-        // Crea un documento PDF
-        Document document = new Document();
-        try {
-            PdfWriter.getInstance(document, new FileOutputStream("factura1.pdf"));
-            document.open();
-
-            // Agrega el contenido de la factura al documento
-            Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
-            Chunk chunk = new Chunk("Factura de Compra\n\n", font);
-            document.add(chunk);
-
-            PdfPTable table = new PdfPTable(2);
-            table.setWidthPercentage(100);
-
-            PdfPCell cell;
-
-            cell = new PdfPCell(new Phrase("Cliente"));
-            cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
-            table.addCell(cell);
-
-            cell = new PdfPCell(new Phrase("Detalle"));
-            cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
-            table.addCell(cell);
-
-
-            table.addCell("DNI del Cliente:");
-            table.addCell(dniCliente);
-            table.addCell("Nombre del Cliente:");
-            table.addCell(nombreCliente);
-            table.addCell("Dirección del Cliente:");
-            table.addCell(direccionCliente);
-            table.addCell("Email del Cliente:");
-            table.addCell(emailCliente);
-            table.addCell("Teléfono del Cliente:");
-            table.addCell(telefonoCliente);
-            table.addCell("ID del Producto:");
-            table.addCell(ID);
-            table.addCell("Nombre del Producto:");
-            table.addCell(nombre);
-            table.addCell("Unidades Compradas:");
-            table.addCell(unidades);
-
-            document.add(table);
-
-            // Cierra el documento
-            document.close();
-
-            JOptionPane.showMessageDialog(null, "Factura generada con éxito.");
-
-        } catch (DocumentException | FileNotFoundException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error al generar la factura.");
         }
     }
 
