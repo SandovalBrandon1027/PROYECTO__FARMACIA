@@ -158,47 +158,73 @@ public class registro_factura extends  JFrame{
         String emailCliente = EmailText.getText();
         String telefonoCliente = TelefonoText.getText();
         String ID = DNIText.getText(); // Agrega aquí el ID del producto
-        String nombre = NombreText.getText(); // Agrega aquí el nombre del producto
+        String nombreProducto = CodigoText.getText(); // Agrega aquí el nombre del producto
 
+        cajero cajeroInstance = new cajero(); // Asume que tienes una instancia de la clase cajero
+        double totalCompras = cajeroInstance.calcularTotal();
         // Crea un documento PDF
         Document document = new Document();
         try {
-            PdfWriter.getInstance(document, new FileOutputStream("factura1.pdf"));
+            PdfWriter.getInstance(document, new FileOutputStream("factura3.pdf"));
             document.open();
 
-            // Agrega el contenido de la factura al documento
-            Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
-            Chunk chunk = new Chunk("FACTURA DE COMPRA\n\n", font);
-            document.add(chunk);
+            // Configuración de fuente y estilos
+            Font fontTitulo = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.BLACK);
+            Font fontEncabezado = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.BLACK);
+            Font fontNormal = FontFactory.getFont(FontFactory.HELVETICA, 12, BaseColor.BLACK);
 
-            PdfPTable table = new PdfPTable(2);
-            table.setWidthPercentage(100);
+            // Título de la factura
+            Paragraph titulo = new Paragraph("FACTURA DE COMPRA", fontTitulo);
+            titulo.setAlignment(Element.ALIGN_CENTER);
+            titulo.setSpacingAfter(20);
+            document.add(titulo);
 
-            PdfPCell cell;
+            // Datos del cliente y detalles
+            PdfPTable datosTabla = new PdfPTable(2);
+            datosTabla.setWidthPercentage(100);
+            datosTabla.setWidths(new float[]{1, 3}); // Configura la proporción de columnas
 
-            cell = new PdfPCell(new Phrase("Cliente"));
-            cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
-            table.addCell(cell);
+            // Encabezado de la tabla
+            PdfPCell cellEncabezado = new PdfPCell(new Phrase("Cliente", fontEncabezado));
+            cellEncabezado.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            cellEncabezado.setHorizontalAlignment(Element.ALIGN_CENTER);
+            datosTabla.addCell(cellEncabezado);
 
-            cell = new PdfPCell(new Phrase("Detalle"));
-            cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
-            table.addCell(cell);
+            cellEncabezado = new PdfPCell(new Phrase("Detalle", fontEncabezado));
+            cellEncabezado.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            cellEncabezado.setHorizontalAlignment(Element.ALIGN_CENTER);
+            datosTabla.addCell(cellEncabezado);
 
+            PdfPTable totalTable = new PdfPTable(2);
+            totalTable.setWidthPercentage(100);
+            totalTable.setWidths(new float[]{1, 3}); // Configura la proporción de columnas
 
-            table.addCell("Nombre del Cliente:");
-            table.addCell(nombreCliente);
-            table.addCell("Dirección del Cliente:");
-            table.addCell(direccionCliente);
-            table.addCell("Email del Cliente:");
-            table.addCell(emailCliente);
-            table.addCell("Teléfono del Cliente:");
-            table.addCell(telefonoCliente);
-            table.addCell("ID del Producto:");
-            table.addCell(ID);
-            table.addCell("Nombre del Producto:");
-            table.addCell(nombre);
+            PdfPCell cellTotal = new PdfPCell(new Phrase("Total", fontEncabezado));
+            cellTotal.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            cellTotal.setHorizontalAlignment(Element.ALIGN_CENTER);
+            totalTable.addCell(cellTotal);
 
-            document.add(table);
+            cellTotal = new PdfPCell(new Phrase(Double.toString(totalCompras), fontNormal)); // Agrega el total como texto
+            cellTotal.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            totalTable.addCell(cellTotal);
+
+            document.add(totalTable);
+
+            // Datos del cliente y detalles
+            datosTabla.addCell(new Phrase("Nombre del Cliente:", fontNormal));
+            datosTabla.addCell(new Phrase(nombreCliente, fontNormal));
+            datosTabla.addCell(new Phrase("Dirección del Cliente:", fontNormal));
+            datosTabla.addCell(new Phrase(direccionCliente, fontNormal));
+            datosTabla.addCell(new Phrase("Email del Cliente:", fontNormal));
+            datosTabla.addCell(new Phrase(emailCliente, fontNormal));
+            datosTabla.addCell(new Phrase("Teléfono del Cliente:", fontNormal));
+            datosTabla.addCell(new Phrase(telefonoCliente, fontNormal));
+            datosTabla.addCell(new Phrase("ID del Producto:", fontNormal));
+            datosTabla.addCell(new Phrase(ID, fontNormal));
+            datosTabla.addCell(new Phrase("Nombre del Producto:", fontNormal));
+            datosTabla.addCell(new Phrase(nombreProducto, fontNormal));
+
+            document.add(datosTabla);
 
             // Cierra el documento
             document.close();

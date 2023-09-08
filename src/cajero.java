@@ -213,6 +213,16 @@ public class cajero extends JFrame {
         }
     }
 
+    //añadir total
+    public double totalCompras;
+
+    public void agregarCompra(double montoCompra) {
+        totalCompras += montoCompra;
+    }
+    public double calcularTotal() {
+        return totalCompras;
+    }
+
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
