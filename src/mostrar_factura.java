@@ -7,10 +7,12 @@ import java.sql.*;
 public class mostrar_factura extends JFrame {
     private JPanel mostrar_factura;
     private JTable table1;
-    private JTable table2;
     private JButton button1;
+    private JTextArea textArea;
+
 
     private int filaSeleccionada = -1;
+
 
     DefaultTableModel mod=new DefaultTableModel();
     private static final String DB_URL = "jdbc:mysql://localhost/FARMACIA";
@@ -19,6 +21,7 @@ public class mostrar_factura extends JFrame {
     private static final String QUERY = "SELECT * FROM FACTURAS"; // Cambia "tabla_nombre"
 
     public mostrar_factura(){
+
         Mostrar();
         setTitle("Farmacia Estelar");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Cierra la aplicación al cerrar este formulario
@@ -36,7 +39,25 @@ public class mostrar_factura extends JFrame {
                 dispose();
                 seleccionar_accion regresar = new seleccionar_accion();
             }
+        });// Agregar el controlador de eventos de selección a la tabla
+        table1.getSelectionModel().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                int selectedRow = table1.getSelectedRow();
+                if (selectedRow != -1) {
+                    // Obtener los datos de la fila seleccionada
+                    StringBuilder rowData = new StringBuilder();
+                    for (int i = 0; i < table1.getColumnCount(); i++) {
+                        rowData.append(table1.getColumnName(i)).append(": ").append(table1.getValueAt(selectedRow, i)).append("\n");
+                    }
+                    // Actualizar el JTextArea con los datos de la fila seleccionada
+                    textArea.setText(rowData.toString());
+                }
+            }
         });
+
+
+
+
     }
 
     public void Mostrar(){

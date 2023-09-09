@@ -22,6 +22,7 @@ public class registro_productos extends JFrame {
     private JTable table1;
     private JButton regresarButton;
     private Connection con;
+    private int filaSeleccionada = -1;
 
     private static final String DB_URL = "jdbc:mysql://localhost/FARMACIA";
     private static final String USER = "root";
@@ -57,6 +58,27 @@ public class registro_productos extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 dispose();
                 seleccionar_accion seleccionar2 = new seleccionar_accion();
+            }
+        });
+
+        table1.getSelectionModel().addListSelectionListener(e -> {
+            filaSeleccionada = table1.getSelectedRow();
+
+            // Verificar si se ha seleccionado una fila
+            if (filaSeleccionada >= 0) {
+                // Obtener los valores de la fila seleccionada
+                String Id = table1.getValueAt(filaSeleccionada, 0).toString();
+                String Nombre = table1.getValueAt(filaSeleccionada, 1).toString();
+                String Unidades = table1.getValueAt(filaSeleccionada, 2).toString();
+                String Precio = table1.getValueAt(filaSeleccionada, 3).toString();
+
+
+                // Establecer los valores en los JTextField
+                IdText.setText(Id);
+                NombreText.setText(Nombre);
+                UnidadesText.setText(Unidades);
+                PrecioText.setText(Precio);
+
             }
         });
         }

@@ -69,6 +69,7 @@ public class registro_factura extends  JFrame{
             // Verificar si se ha seleccionado una fila
             if (filaSeleccionada >= 0) {
                 // Obtener los valores de la fila seleccionada DNI, Nombre, Apellido, Direccion, Email, Telefono
+
                 String DNI = table1.getValueAt(filaSeleccionada, 0).toString();
                 String Nombre = table1.getValueAt(filaSeleccionada, 1).toString();
                 String Apellido = table1.getValueAt(filaSeleccionada, 2).toString();
@@ -77,7 +78,7 @@ public class registro_factura extends  JFrame{
                 String Telefono = table1.getValueAt(filaSeleccionada, 5).toString();
 
                 // Establecer los valores en los JTextField
-                CodigoText.setText("");
+                DNIText.setText(DNI);
                 NombreText.setText(Nombre);
                 ApellidoText.setText(Apellido);
                 DireccionText.setText(Direccion);
