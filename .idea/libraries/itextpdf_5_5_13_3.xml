@@ -1,21 +1,9 @@
 <component name="libraryTable">
   <library name="itextpdf-5.5.13.3">
     <CLASSES>
-      <root url="jar://$USER_HOME$/Desktop/itextpdf-5.5.13.3.jar!/" />
-      <root url="jar://$USER_HOME$/Desktop/mysql-connector-j-8.0.33/mysql-connector-j-8.0.33.jar!/" />
+      <root url="jar://$USER_HOME$/Desktop/Uni 3n/Importante JAVA/itextpdf-5.5.13.3.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES>
-      <root url="jar://$USER_HOME$/Desktop/mysql-connector-j-8.0.33.zip!/mysql-connector-j-8.0.33/src/build/java" />
-      <root url="jar://$USER_HOME$/Desktop/mysql-connector-j-8.0.33.zip!/mysql-connector-j-8.0.33/src/demo/java" />
-      <root url="jar://$USER_HOME$/Desktop/mysql-connector-j-8.0.33.zip!/mysql-connector-j-8.0.33/src/generated/java" />
-      <root url="jar://$USER_HOME$/Desktop/mysql-connector-j-8.0.33.zip!/mysql-connector-j-8.0.33/src/legacy/java" />
-      <root url="jar://$USER_HOME$/Desktop/mysql-connector-j-8.0.33.zip!/mysql-connector-j-8.0.33/src/main/core-api/java" />
-      <root url="jar://$USER_HOME$/Desktop/mysql-connector-j-8.0.33.zip!/mysql-connector-j-8.0.33/src/main/core-impl/java" />
-      <root url="jar://$USER_HOME$/Desktop/mysql-connector-j-8.0.33.zip!/mysql-connector-j-8.0.33/src/main/protocol-impl/java" />
-      <root url="jar://$USER_HOME$/Desktop/mysql-connector-j-8.0.33.zip!/mysql-connector-j-8.0.33/src/main/user-api/java" />
-      <root url="jar://$USER_HOME$/Desktop/mysql-connector-j-8.0.33.zip!/mysql-connector-j-8.0.33/src/main/user-impl/java" />
-      <root url="jar://$USER_HOME$/Desktop/mysql-connector-j-8.0.33.zip!/mysql-connector-j-8.0.33/src/test/java" />
-    </SOURCES>
+    <SOURCES />
   </library>
 </component>

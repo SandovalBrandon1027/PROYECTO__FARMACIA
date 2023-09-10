@@ -4,6 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.table.DefaultTableModel;
 import java.sql.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
 
 public class registro_productos extends JFrame {
     PreparedStatement ps;
@@ -34,12 +37,6 @@ public class registro_productos extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Mostrar();
-
-            }
-        });
-        guardarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
 
             }
         });
@@ -81,7 +78,187 @@ public class registro_productos extends JFrame {
 
             }
         });
-        }
+        guardarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    // Establecer la conexión a la base de datos
+                    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/FARMACIA", "root", "");
+
+                    // Preparar la sentencia SQL para la inserción de datos
+                    String sql = "INSERT INTO PRODUCTOS (ID, NombreProd, Unidades, Precio) VALUES (?, ?, ?, ?)";
+                    PreparedStatement pstmt = conn.prepareStatement(sql);
+
+                    // Obtener los valores de los campos de texto
+                    int id = Integer.parseInt(IdText.getText());
+                    String nombrePro = NombreText.getText();
+                    int unidades = Integer.parseInt(UnidadesText.getText());
+                    double precio = Double.parseDouble(PrecioText.getText());
+
+                    // Establecer los valores en la sentencia SQL
+                    pstmt.setInt(1, id);
+                    pstmt.setString(2, nombrePro);
+                    pstmt.setInt(3, unidades);
+                    pstmt.setDouble(4, precio);
+
+                    // Ejecutar la inserción de datos
+                    pstmt.executeUpdate();
+
+                    // Cerrar la conexión y liberar recursos
+                    pstmt.close();
+                    conn.close();
+
+                    // Mostrar un mensaje de éxito
+                    JOptionPane.showMessageDialog(null, "Datos guardados correctamente");
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Error al guardar los datos");
+                }
+            }
+        });
+        actualizarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    // Establecer la conexión a la base de datos
+                    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/FARMACIA", "root", "");
+
+                    // Preparar la sentencia SQL para la actualización de datos
+                    String sql = "UPDATE PRODUCTOS SET NombreProd = ?, Unidades = ?, Precio = ? WHERE ID = ?";
+                    PreparedStatement pstmt = conn.prepareStatement(sql);
+
+                    // Obtener los valores de los campos de texto
+                    int id = Integer.parseInt(IdText.getText());
+                    String nombrePro = NombreText.getText();
+                    int unidades = Integer.parseInt(UnidadesText.getText());
+                    double precio = Double.parseDouble(PrecioText.getText());
+
+                    // Establecer los valores en la sentencia SQL
+                    pstmt.setString(1, nombrePro);
+                    pstmt.setInt(2, unidades);
+                    pstmt.setDouble(3, precio);
+                    pstmt.setInt(4, id);
+
+                    // Ejecutar la actualización de datos
+                    pstmt.executeUpdate();
+
+                    // Cerrar la conexión y liberar recursos
+                    pstmt.close();
+                    conn.close();
+
+                    // Mostrar un mensaje de éxito
+                    JOptionPane.showMessageDialog(null, "Datos actualizados correctamente");
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Error al actualizar los datos");
+                }
+            }
+        });
+
+        // Agregar DocumentListener a los campos de texto para detectar cambios en tiempo real
+        IdText.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                actualizarButton.setEnabled(true);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                actualizarButton.setEnabled(true);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                actualizarButton.setEnabled(true);
+            }
+        });
+
+        NombreText.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                actualizarButton.setEnabled(true);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                actualizarButton.setEnabled(true);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                actualizarButton.setEnabled(true);
+            }
+        });
+
+        UnidadesText.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                actualizarButton.setEnabled(true);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                actualizarButton.setEnabled(true);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                actualizarButton.setEnabled(true);
+            }
+        });
+
+        PrecioText.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                actualizarButton.setEnabled(true);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                actualizarButton.setEnabled(true);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                actualizarButton.setEnabled(true);
+            }
+        });
+        elminarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    // Establecer la conexión a la base de datos
+                    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/FARMACIA", "root", "");
+
+                    // Obtener el valor de ID desde el campo de texto
+                    int id = Integer.parseInt(IdText.getText());
+
+                    // Preparar la sentencia SQL para eliminar la fila según la ID
+                    String sql = "DELETE FROM PRODUCTOS WHERE ID = ?";
+                    PreparedStatement pstmt = conn.prepareStatement(sql);
+                    pstmt.setInt(1, id);
+
+                    // Ejecutar la eliminación de la fila
+                    int rowsDeleted = pstmt.executeUpdate();
+
+                    // Cerrar la conexión y liberar recursos
+                    pstmt.close();
+                    conn.close();
+
+                    if (rowsDeleted > 0) {
+                        // Si se eliminó al menos una fila
+                        JOptionPane.showMessageDialog(null, "Fila eliminada correctamente");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No se encontró ninguna fila con la ID especificada");
+                    }
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Error al eliminar la fila");
+                }
+            }
+        });
+    }
+
 
     public void Mostrar(){
         //genera columnas de la tabla
