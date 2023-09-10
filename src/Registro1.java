@@ -3,15 +3,10 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.sql.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import com.itextpdf.text.*;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.pdf.*;
 
 
 public class Registro1 extends JFrame{
@@ -20,8 +15,8 @@ public class Registro1 extends JFrame{
     Statement st;
     ResultSet r;
     private JPanel panel;
-    private JTextField DNItext;
-    private JTextField NombreText;
+    private JTextField Nombretext;
+    private JTextField ApellidoText;
     private JTextField DireccionText;
     private JTextField EmailText;
     private JTextField TelefonoText;
@@ -32,7 +27,7 @@ public class Registro1 extends JFrame{
     private JTable table1;
     private JButton regresarButton;
     private JButton facturaButton;
-    private JTextField CodigoText;
+    private JTextField DniText;
     private Connection con;
     private int filaSeleccionada = -1;
 
@@ -40,27 +35,16 @@ public class Registro1 extends JFrame{
     private static final String DB_URL = "jdbc:mysql://localhost/FARMACIA";
     private static final String USER = "root";
     private static final String PASS = "";
-    private static final String QUERY = "SELECT * FROM usuarios"; // Cambia "tabla_nombre"
+    private static final String QUERY = "SELECT * FROM usuarios";
 
 
-
-
-
-
-    public Registro1(){
+    public Registro1() {
 
 
         mostrarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Mostrar();
-
-            }
-        });
-        guardarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
 
             }
         });
@@ -80,19 +64,14 @@ public class Registro1 extends JFrame{
                 String telefono = table1.getValueAt(filaSeleccionada, 5).toString();
 
                 // Establecer los valores en los JTextField
-                CodigoText.setText(codigo);
-                DNItext.setText(idUsuario);
-                NombreText.setText(nombre);
+                DniText.setText(codigo);
+                Nombretext.setText(idUsuario);
+                ApellidoText.setText(nombre);
                 DireccionText.setText(direccion);
                 EmailText.setText(email);
                 TelefonoText.setText(telefono);
             }
         });
-
-
-
-
-
 
         setTitle("Farmacia Estelar");
         setContentPane(panel);
@@ -110,6 +89,145 @@ public class Registro1 extends JFrame{
             }
         });
 
+        guardarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Obtiene los valores de los campos de texto o componentes de tu interfaz
+                String dni = DniText.getText();
+                String nombre = Nombretext.getText();
+                String apellido = ApellidoText.getText();
+                String direccion = DireccionText.getText();
+                String email = EmailText.getText();
+                String telefono = TelefonoText.getText();
+
+                // Llama a un método para guardar los datos en la base de datos
+                boolean resultado = guardarUsuario(dni, nombre, apellido, direccion, email, telefono);
+
+                // Muestra un mensaje emergente con el resultado
+                if (resultado) {
+                    JOptionPane.showMessageDialog(null, "Usuario insertado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se pudo insertar el usuario.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+        actualizarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Obtiene los valores de los campos de texto o componentes de tu interfaz
+                String dni = DniText.getText();
+                String nombre = Nombretext.getText();
+                String apellido = ApellidoText.getText();
+                String direccion = DireccionText.getText();
+                String email = EmailText.getText();
+                String telefono = TelefonoText.getText();
+
+                // Llama a un método para actualizar los datos en la base de datos
+                boolean resultado = actualizarUsuario(dni, nombre, apellido, direccion, email, telefono);
+
+                // Muestra un mensaje emergente con el resultado
+                if (resultado) {
+                    JOptionPane.showMessageDialog(null, "Usuario actualizado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se pudo actualizar el usuario.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+        elminarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Obtiene el DNI del usuario que deseas eliminar
+                String dniEliminar = DniText.getText();
+
+                // Llama a un método para eliminar el usuario de la base de datos
+                boolean resultado = eliminarUsuario(dniEliminar);
+
+                // Muestra un mensaje emergente con el resultado
+                if (resultado) {
+                    JOptionPane.showMessageDialog(null, "Usuario eliminado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+                    // Limpia los campos de texto después de eliminar
+                    Nombretext.setText("");
+                    ApellidoText.setText("");
+                    DireccionText.setText("");
+                    EmailText.setText("");
+                    TelefonoText.setText("");
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se pudo eliminar el usuario.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+// Más código de configuración de tu interfaz y ventana Swing
+    }
+
+    // Método para eliminar un usuario de la base de datos
+    private boolean eliminarUsuario(String dniEliminar) {
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            String query = "DELETE FROM usuarios WHERE DNI=?";
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setString(1, dniEliminar);
+
+            int rowsDeleted = preparedStatement.executeUpdate();
+
+            preparedStatement.close();
+            conn.close();
+
+            return rowsDeleted > 0; // Retorna verdadero si se eliminó al menos una fila
+        } catch (SQLException ex) {
+            System.err.println("Error al eliminar el usuario: " + ex.getMessage());
+            return false;
+        }
+    }
+
+    // Método para actualizar un usuario en la base de datos
+    private boolean actualizarUsuario(String dni, String nombre, String apellido, String direccion, String email, String telefono) {
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            String query = "UPDATE usuarios SET Nombre=?, Apellido=?, Direccion=?, Email=?, Telefono=? WHERE DNI=?";
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setString(1, nombre);
+            preparedStatement.setString(2, apellido);
+            preparedStatement.setString(3, direccion);
+            preparedStatement.setString(4, email);
+            preparedStatement.setString(5, telefono);
+            preparedStatement.setString(6, dni);
+
+            int rowsUpdated = preparedStatement.executeUpdate();
+
+            preparedStatement.close();
+            conn.close();
+
+            return rowsUpdated > 0; // Retorna verdadero si se actualizó al menos una fila
+        } catch (SQLException ex) {
+            System.err.println("Error al actualizar el usuario: " + ex.getMessage());
+            return false;
+        }
+    }
+    private static boolean guardarUsuario(String dni, String nombre, String apellido, String direccion, String email, String telefono) {
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            String query = "INSERT INTO usuarios (DNI, Nombre, Apellido, Direccion, Email, Telefono) VALUES (?, ?, ?, ?, ?, ?)";
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setString(1, dni);
+            preparedStatement.setString(2, nombre);
+            preparedStatement.setString(3, apellido);
+            preparedStatement.setString(4, direccion);
+            preparedStatement.setString(5, email);
+            preparedStatement.setString(6, telefono);
+
+            int rowsInserted = preparedStatement.executeUpdate();
+
+            preparedStatement.close();
+            conn.close();
+
+            return rowsInserted > 0; // Retorna verdadero si se insertó al menos una fila
+        } catch (SQLException ex) {
+            System.err.println("Error al guardar el usuario: " + ex.getMessage());
+            return false;
+        }
     }
 
 
@@ -117,7 +235,7 @@ public class Registro1 extends JFrame{
     public void Mostrar(){
         //genera columnas de la tabla
         DefaultTableModel model = new DefaultTableModel();
-        model.addColumn("IdUsuario");
+        model.addColumn("DNI");
         model.addColumn("Nombre");
         model.addColumn("Apellido");
         model.addColumn("Direccion");

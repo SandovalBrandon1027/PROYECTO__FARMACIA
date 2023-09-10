@@ -29,6 +29,7 @@
             </constraints>
             <properties>
               <font size="18"/>
+              <text value=""/>
             </properties>
           </component>
           <component id="43d47" class="javax.swing.JTextField" binding="EmailText">
@@ -39,6 +40,7 @@
             </constraints>
             <properties>
               <font size="18"/>
+              <text value=""/>
             </properties>
           </component>
           <component id="5e563" class="javax.swing.JTextField" binding="TelefonoText">
@@ -213,7 +215,7 @@
               <text value="Apellido"/>
             </properties>
           </component>
-          <component id="fa0a3" class="javax.swing.JTextField" binding="NombreText">
+          <component id="fa0a3" class="javax.swing.JTextField" binding="ApellidoText">
             <constraints>
               <grid row="5" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -221,6 +223,7 @@
             </constraints>
             <properties>
               <font size="18"/>
+              <text value=""/>
             </properties>
           </component>
           <component id="b855e" class="javax.swing.JLabel">
@@ -232,7 +235,7 @@
               <text value="Nombre:"/>
             </properties>
           </component>
-          <component id="4a329" class="javax.swing.JTextField" binding="DNItext">
+          <component id="4a329" class="javax.swing.JTextField" binding="Nombretext">
             <constraints>
               <grid row="4" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -251,7 +254,7 @@
               <text value="DNI"/>
             </properties>
           </component>
-          <component id="94ec7" class="javax.swing.JTextField" binding="CodigoText">
+          <component id="94ec7" class="javax.swing.JTextField" binding="DniText">
             <constraints>
               <grid row="3" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -259,6 +262,7 @@
             </constraints>
             <properties>
               <font size="18"/>
+              <text value=""/>
             </properties>
           </component>
         </children>
