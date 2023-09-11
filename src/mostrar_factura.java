@@ -22,12 +22,12 @@ public class mostrar_factura extends JFrame {
     private static final String PASS = "";
     private static final String QUERY = "SELECT * FROM FACTURAS"; // Cambia "tabla_nombre"
 
-    public mostrar_factura(){
+    public mostrar_factura() {
 
         Mostrar();
         setTitle("Farmacia Estelar");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Cierra la aplicación al cerrar este formulario
-        setSize(900, 500); // Tamaño del formulario
+        setSize(1200, 500); // Tamaño del formulario
         setLocationRelativeTo(null); // Centrar en la pantalla
         setContentPane(mostrar_factura); // Establecer el panel como contenido
 
@@ -58,16 +58,11 @@ public class mostrar_factura extends JFrame {
         });
 
 
-        revisarVentasButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                
-            }
-        });
+
     }
 
-    public void Mostrar(){
-        //genera columnas de la tabla //Codigo, DNI, Nombre, Apellido, Direccion, Email, Telefono, ID, NombreProd, Unidades, Precio
+        public void Mostrar(){
+        //genera columnas de la tabla //Codigo, DNI, Nombre, Apellido, Direccion, Email, Telefono, ID, NombreProd, Unidades, Precio, PrecioTotal
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("Codigo");
         model.addColumn("DNI");
@@ -80,6 +75,7 @@ public class mostrar_factura extends JFrame {
         model.addColumn("NombreProd");
         model.addColumn("Unidades");
         model.addColumn("Precio");
+        model.addColumn("Precio Total");
 
 
         // Poner las columnas en el modelo hecho en el Jtable
@@ -87,7 +83,7 @@ public class mostrar_factura extends JFrame {
         table1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         //arreglo que almnacena datos
-        String [] informacion=new String[11];//especifico el numero de columnas
+        String [] informacion=new String[12];//especifico el numero de columnas
 
         try{
             Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -107,6 +103,8 @@ public class mostrar_factura extends JFrame {
                 informacion[8]=rs.getString(9);
                 informacion[9]=rs.getString(10);
                 informacion[10]=rs.getString(11);
+                informacion[11]=rs.getString(12);
+
 
 
 
@@ -118,9 +116,12 @@ public class mostrar_factura extends JFrame {
             JOptionPane.showMessageDialog(null,"Error"+e.toString());
         }
     }
+
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            new mostrar_factura();
-        });
+        JFrame frame = new JFrame("mostrar_factura");
+        frame.setContentPane(new mostrar_factura().mostrar_factura);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
     }
 }

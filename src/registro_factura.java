@@ -116,9 +116,110 @@ public class registro_factura extends  JFrame{
         });
         table1.addComponentListener(new ComponentAdapter() {
         });
+        guardarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Obtén los valores de tus campos de entrada
+                String dni = DNIText.getText();
+                String nombre = NombreText.getText();
+                String apellido = ApellidoText.getText();
+                String direccion = DireccionText.getText();
+                String email = EmailText.getText();
+                String telefono =  TelefonoText.getText();
+
+                // Llama a un método para guardar los datos en la base de datos
+                boolean resultado = guardarDatosEnBaseDeDatos(dni, nombre, apellido, direccion, email, telefono);
+
+                // Muestra un mensaje de confirmación
+                if (resultado) {
+                    JOptionPane.showMessageDialog(null, "Usuario guardado exitosamente.");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al guardar el usuario.");
+                }
+            }
+        });
+        actualizarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Obtén el DNI del usuario a actualizar
+                String dni = DNIText.getText();
+
+                // Llama a un método para actualizar los datos en la base de datos
+                boolean resultado = actualizarDatosEnBaseDeDatos(dni);
+
+                // Muestra un mensaje de confirmación
+                if (resultado) {
+                    JOptionPane.showMessageDialog(null, "Usuario actualizado exitosamente.");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al actualizar el usuario o el usuario no existe.");
+                }
+            }
+        });
     }
+    private boolean actualizarDatosEnBaseDeDatos(String dni) {
+        try {
+            // Establece la conexión con la base de datos
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/FARMACIA", "root", "");
 
+            // Crea la sentencia SQL para actualizar el registro en la tabla USUARIOS
+            String sql = "UPDATE USUARIOS SET Nombre=?, Apellido=?, Direccion=?, Email=?, Telefono=? WHERE DNI=?";
 
+            // Prepara la sentencia SQL
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, NombreText.getText());
+            pstmt.setString(2, ApellidoText.getText());
+            pstmt.setString(3, DireccionText.getText());
+            pstmt.setString(4, EmailText.getText());
+            pstmt.setString(5, TelefonoText.getText());
+            pstmt.setString(6, dni);
+
+            // Ejecuta la actualización
+            int rowsAffected = pstmt.executeUpdate();
+
+            // Cierra la conexión y el PreparedStatement
+            pstmt.close();
+            conn.close();
+
+            // Comprueba si se actualizó el usuario correctamente
+            return rowsAffected > 0;
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+    private boolean guardarDatosEnBaseDeDatos(String dni, String nombre, String apellido, String direccion, String email, String telefono) {
+        try {
+            // Establece la conexión con la base de datos
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/FARMACIA", "root", "");
+
+            // Crea la sentencia SQL para insertar un nuevo registro en la tabla USUARIOS
+            String sql = "INSERT INTO USUARIOS (DNI, Nombre, Apellido, Direccion, Email, Telefono) VALUES (?, ?, ?, ?, ?, ?)";
+
+            // Prepara la sentencia SQL
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, dni);
+            pstmt.setString(2, nombre);
+            pstmt.setString(3, apellido);
+            pstmt.setString(4, direccion);
+            pstmt.setString(5, email);
+            pstmt.setString(6, telefono);
+
+            // Ejecuta la inserción
+            int rowsAffected = pstmt.executeUpdate();
+
+            // Cierra la conexión y el PreparedStatement
+            pstmt.close();
+            conn.close();
+
+            // Comprueba si se guardó el usuario correctamente
+            return rowsAffected > 0;
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
 
     public void Mostrar(){
         //genera columnas de la tabla DNI, Nombre, Apellido, Direccion, Email, Telefono
@@ -294,11 +395,6 @@ public class registro_factura extends  JFrame{
             }
         }
     }
-
-
-
-
-
 
 
     public static void main(String[] args) {
