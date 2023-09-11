@@ -9,6 +9,7 @@ public class mostrar_factura extends JFrame {
     private JTable table1;
     private JButton button1;
     private JTextArea textArea;
+    private JButton revisarVentasButton;
 
 
     private int filaSeleccionada = -1;
@@ -56,8 +57,12 @@ public class mostrar_factura extends JFrame {
         });
 
 
-
-
+        revisarVentasButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+            }
+        });
     }
 
     public void Mostrar(){
