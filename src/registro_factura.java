@@ -161,6 +161,9 @@ public class registro_factura extends  JFrame{
         String ID = DNIText.getText(); // Agrega aquí el ID del producto
         String nombreProducto = CodigoText.getText(); // Agrega aquí el nombre del producto
 
+
+
+
         cajero cajeroInstance = new cajero(); // Asume que tienes una instancia de la clase cajero
         double totalCompras = cajeroInstance.calcularTotal();
         // Crea un documento PDF

@@ -21,12 +21,6 @@ public class seleccionar_accion extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
 
-
-
-
-
-
-
         ingresarProductoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
