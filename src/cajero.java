@@ -11,7 +11,6 @@ public class cajero extends JFrame {
     private JTextField NombreText;
     private JTextField CantidadText;
     private JTextField PrecioText;
-    private JButton volverAComprarButton;
     private JButton pagarButton;
     private JButton regresarButton;
     private JTable table1;
@@ -61,16 +60,7 @@ public class cajero extends JFrame {
                 }
             }
         });
-        volverAComprarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                NombreText.setText(""); // Limpia el primer campo de texto
-                CantidadText.setText("");
-                PrecioText.setText("");
 
-
-            }
-        });
         mostrarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

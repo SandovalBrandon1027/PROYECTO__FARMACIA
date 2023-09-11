@@ -67,12 +67,7 @@ public class mostrar_factura extends JFrame {
         });
 
 
-        revisarVentasButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                
-            }
-        });
+
         facturaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

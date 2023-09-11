@@ -74,6 +74,15 @@ public class registro_factura extends  JFrame{
             public void actionPerformed(ActionEvent e) {
 
                 generarFacturaPDF();
+                Component source = (Component) e.getSource();
+                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(source);
+
+                // Cerrar el formulario actual (registro_factura)
+                frame.dispose();
+
+                // Abrir el formulario de cajero (cajero)
+                cajero cajeroInstance = new cajero();
+                cajeroInstance.setVisible(true);
 
             }
         });
@@ -269,14 +278,14 @@ public class registro_factura extends  JFrame{
         String emailCliente = EmailText.getText();
         String telefonoCliente = TelefonoText.getText();
         String DNI = DNIText.getText();
-        String codigoFactura = CodigoText.getText();
 
 
 
-        cajero cajeroInstance = new cajero();
+
+
 
         String fechaActual = new SimpleDateFormat("yyyyMMddHHmmss").format(new java.util.Date());
-        String nombreFactura = "factura" + facturaNumero + "_" + fechaActual + ".pdf";
+        String nombreFactura = "Factura"  + "_" + fechaActual + ".pdf";
         facturaNumero++;
 
         Document document = new Document();
@@ -320,8 +329,6 @@ public class registro_factura extends  JFrame{
 
             document.add(totalTable);
 
-            datosTabla.addCell(new Phrase("Codigo de la factura:", fontNormal));
-            datosTabla.addCell(new Phrase(codigoFactura, fontNormal));
             datosTabla.addCell(new Phrase("DNI del cliente:", fontNormal));
             datosTabla.addCell(new Phrase(DNI, fontNormal));
             datosTabla.addCell(new Phrase("Nombre del Cliente:", fontNormal));
@@ -391,6 +398,7 @@ public class registro_factura extends  JFrame{
 
             document.close();
 
+
             JOptionPane.showMessageDialog(null, "Factura generada con éxito: " + nombreFactura);
         } catch (DocumentException | FileNotFoundException ex) {
             ex.printStackTrace();
@@ -400,7 +408,7 @@ public class registro_factura extends  JFrame{
 
 
 
-    public class ContadorFacturas {
+    /*public class ContadorFacturas {
         private static final String archivoFactura = "numero_factura.txt";
 
         // Método para obtener el número de factura actual
@@ -443,7 +451,7 @@ public class registro_factura extends  JFrame{
                 e.printStackTrace();
             }
         }
-    }
+    } */
 
 
     public static void main(String[] args) {
