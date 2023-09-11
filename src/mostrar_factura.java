@@ -10,6 +10,7 @@ public class mostrar_factura extends JFrame {
     private JButton button1;
     private JTextArea textArea;
     private JButton revisarVentasButton;
+    private JButton facturaButton;
 
 
     private int filaSeleccionada = -1;

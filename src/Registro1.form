@@ -203,7 +203,7 @@
             <properties>
               <hideActionText value="true"/>
               <icon value="eliminar.png"/>
-              <text value="Elminar"/>
+              <text value="Eliminar"/>
             </properties>
           </component>
           <component id="80adc" class="javax.swing.JLabel">
