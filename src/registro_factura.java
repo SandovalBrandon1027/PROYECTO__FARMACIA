@@ -69,11 +69,21 @@ public class registro_factura extends  JFrame{
 
             }
         });
+
+
         facturaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+
                 generarFacturaPDF();
+                Component source = (Component) e.getSource();
+                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(source);
+
+                frame.dispose();
+
+                cajero cajeroInstance = new cajero();
+                cajeroInstance.setVisible(true);
 
             }
         });
@@ -269,14 +279,11 @@ public class registro_factura extends  JFrame{
         String emailCliente = EmailText.getText();
         String telefonoCliente = TelefonoText.getText();
         String DNI = DNIText.getText();
-        String codigoFactura = CodigoText.getText();
 
 
-
-        cajero cajeroInstance = new cajero();
 
         String fechaActual = new SimpleDateFormat("yyyyMMddHHmmss").format(new java.util.Date());
-        String nombreFactura = "factura" +  "_" + fechaActual + ".pdf";
+        String nombreFactura = "Factura" +  "_" + fechaActual + ".pdf";
 
 
         Document document = new Document();
@@ -320,8 +327,6 @@ public class registro_factura extends  JFrame{
 
             document.add(totalTable);
 
-            datosTabla.addCell(new Phrase("Codigo de la factura:", fontNormal));
-            datosTabla.addCell(new Phrase(codigoFactura, fontNormal));
             datosTabla.addCell(new Phrase("DNI del cliente:", fontNormal));
             datosTabla.addCell(new Phrase(DNI, fontNormal));
             datosTabla.addCell(new Phrase("Nombre del Cliente:", fontNormal));
@@ -399,7 +404,7 @@ public class registro_factura extends  JFrame{
     }
 
 
-
+/*
     public class ContadorFacturas {
         private static final String archivoFactura = "numero_factura.txt";
 
@@ -444,7 +449,7 @@ public class registro_factura extends  JFrame{
             }
         }
     }
-
+*/
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {

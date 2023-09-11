@@ -79,7 +79,6 @@ public class mostrar_factura extends JFrame {
     public void Mostrar(){
         //genera columnas de la tabla //Codigo, DNI, Nombre, Apellido, Direccion, Email, Telefono, ID, NombreProd, Unidades, Precio
         DefaultTableModel model = new DefaultTableModel();
-        model.addColumn("Codigo");
         model.addColumn("DNI");
         model.addColumn("Nombre");
         model.addColumn("Direccion");
@@ -97,7 +96,7 @@ public class mostrar_factura extends JFrame {
         table1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         //arreglo que almnacena datos
-        String [] informacion=new String[11];//especifico el numero de columnas
+        String [] informacion=new String[10];//especifico el numero de columnas
 
         try{
             Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -116,7 +115,7 @@ public class mostrar_factura extends JFrame {
                 informacion[7]=rs.getString(8);
                 informacion[8]=rs.getString(9);
                 informacion[9]=rs.getString(10);
-                informacion[10]=rs.getString(11);
+
 
 
 
