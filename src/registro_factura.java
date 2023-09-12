@@ -276,8 +276,8 @@ public class registro_factura extends  JFrame{
         cajero cajeroInstance = new cajero();
 
         String fechaActual = new SimpleDateFormat("yyyyMMddHHmmss").format(new java.util.Date());
-        String nombreFactura = "factura" + facturaNumero + "_" + fechaActual + ".pdf";
-        facturaNumero++;
+        String nombreFactura = "factura" +  "_" + fechaActual + ".pdf";
+
 
         Document document = new Document();
         try {
