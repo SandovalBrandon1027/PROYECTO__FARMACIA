@@ -44,9 +44,17 @@ El cajero tendra como una "Tienda virtual" la cual nos muestra los productos en 
 Cuanta con diferentes botones como el de calcular precio este por siacaso ya que hay clientes que solo buscan averiguar el precio para volver en otra ocacion, tambien el boton seguir comprando ya que aveces los clientes no a quieren una sola cosa es como un agregar al carrito y por ultimo el boton pagar como su nombre lo dice este nos llevara a crear una factura <br>
 
 ![imagen](https://github.com/SandovalBrandon1027/PROYECTO__FARMACIA/assets/117743657/e77fd469-8cc9-4805-a911-ba21fd1202ef)
+<br>
+Aqui debemos llenar los datos del cliente para realizarle su factura
+<br>
 
+3.Creacion del codigo <br>
 
+3.1. Conectar nuestra base de datos a nuestro codigo, esto lo logramos mediante una conexcion jdbc con las siguientes lineas de codigo
 
+![imagen](https://github.com/SandovalBrandon1027/PROYECTO__FARMACIA/assets/117743657/3e71b016-190d-476d-80b3-5095eb08c12e)
+
+3.2.
 
 
 
