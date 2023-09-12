@@ -28,7 +28,7 @@ Aqui tenemos el resgitro de usuarios en el cual podremos agregar y mostrar todos
 ![imagen](https://github.com/SandovalBrandon1027/PROYECTO__FARMACIA/assets/117743657/1dda0b74-8bc9-4eba-9836-7ab6fe2b29d1)
 
 Y como ultima funcionalidad tenemos la de revisar las facturas, en la cual podemos revisar las facturas vendidas y en tal caso volverlas a imprimir
-
+<br>
 
 ![imagen](https://github.com/SandovalBrandon1027/PROYECTO__FARMACIA/assets/117743657/3e4b5f71-bab3-439d-80cb-b7feeb52d24c)
 
