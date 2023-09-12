@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileOutputStream;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class mostrar_factura extends JFrame {
@@ -132,7 +133,8 @@ public class mostrar_factura extends JFrame {
         Document document = new Document();
         try {
             // Nombre del archivo PDF (puedes cambiarlo según tus necesidades)
-            String nombreFactura = "factura.pdf";
+            String fechaActual = new SimpleDateFormat("yyyyMMddHHmmss").format(new java.util.Date());
+            String nombreFactura = "Factura" +  "_" + fechaActual + ".pdf";
 
             PdfWriter.getInstance(document, new FileOutputStream(nombreFactura));
             document.open();

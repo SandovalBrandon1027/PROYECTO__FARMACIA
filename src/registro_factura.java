@@ -344,46 +344,16 @@ public class registro_factura extends  JFrame{
             productosTable.setWidthPercentage(100);
             productosTable.setWidths(new float[]{1, 3, 1, 1});
 
-            PdfPCell cellProducto = new PdfPCell(new Phrase("ID", fontEncabezado));
-            cellProducto.setBackgroundColor(BaseColor.LIGHT_GRAY);
-            cellProducto.setHorizontalAlignment(Element.ALIGN_CENTER);
-            productosTable.addCell(cellProducto);
-
-            cellProducto = new PdfPCell(new Phrase(Id, fontEncabezado));
-            cellProducto.setBackgroundColor(BaseColor.LIGHT_GRAY);
-            cellProducto.setHorizontalAlignment(Element.ALIGN_CENTER);
-            productosTable.addCell(cellProducto);
-
-            cellProducto = new PdfPCell(new Phrase("Nombre del Producto", fontEncabezado));
-            cellProducto.setBackgroundColor(BaseColor.LIGHT_GRAY);
-            cellProducto.setHorizontalAlignment(Element.ALIGN_CENTER);
-            productosTable.addCell(cellProducto);
-
-            cellProducto = new PdfPCell(new Phrase(NombreProd, fontEncabezado));
-            cellProducto.setBackgroundColor(BaseColor.LIGHT_GRAY);
-            cellProducto.setHorizontalAlignment(Element.ALIGN_CENTER);
-            productosTable.addCell(cellProducto);
-
-            cellProducto = new PdfPCell(new Phrase("Unidades", fontEncabezado));
-            cellProducto.setBackgroundColor(BaseColor.LIGHT_GRAY);
-            cellProducto.setHorizontalAlignment(Element.ALIGN_CENTER);
-            productosTable.addCell(cellProducto);
-
-            cellProducto = new PdfPCell(new Phrase(Cantidad, fontEncabezado));
-            cellProducto.setBackgroundColor(BaseColor.LIGHT_GRAY);
-            cellProducto.setHorizontalAlignment(Element.ALIGN_CENTER);
-            productosTable.addCell(cellProducto);
 
 
-            cellProducto = new PdfPCell(new Phrase("Total", fontEncabezado));
-            cellProducto.setBackgroundColor(BaseColor.LIGHT_GRAY);
-            cellProducto.setHorizontalAlignment(Element.ALIGN_CENTER);
-            productosTable.addCell(cellProducto);
-
-            cellProducto = new PdfPCell(new Phrase(Precio, fontEncabezado));
-            cellProducto.setBackgroundColor(BaseColor.LIGHT_GRAY);
-            cellProducto.setHorizontalAlignment(Element.ALIGN_CENTER);
-            productosTable.addCell(cellProducto);
+            productosTable.addCell(new Phrase("ID del producto:", fontNormal));
+            productosTable.addCell(new Phrase(Id, fontNormal));
+            productosTable.addCell(new Phrase("NombreProd del producto:", fontNormal));
+            productosTable.addCell(new Phrase(NombreProd, fontNormal));
+            productosTable.addCell(new Phrase("Cantidad del producto:", fontNormal));
+            productosTable.addCell(new Phrase(Cantidad, fontNormal));
+            productosTable.addCell(new Phrase("Total del producto:", fontNormal));
+            productosTable.addCell(new Phrase(Precio, fontNormal));
 
 
             document.add(datosTabla);
