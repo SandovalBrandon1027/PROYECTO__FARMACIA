@@ -84,8 +84,8 @@ Aqui debemos llenar los datos del cliente para realizarle su factura
 
 ![imagen](https://github.com/SandovalBrandon1027/PROYECTO__FARMACIA/assets/117743657/51bd9837-9605-43a8-a88d-136c4b199b46)
 
-La libreria itextpdf, nos sirve para generar la factura <br>
-La libreria mysql-connector, nos sirve para conectar nuestras bases de datos a nuestro codigo y asi poder maniparlos mediante codigo.
+La libreria itextpdf, nos sirve para generar la factura. <br>
+La libreria mysql-connector, nos sirve para conectar nuestras bases de datos a nuestro proyecto y asi poder maniparlos mediante codigo.
 
 
 
