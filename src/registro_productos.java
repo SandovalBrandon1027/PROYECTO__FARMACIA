@@ -6,7 +6,10 @@ import javax.swing.table.DefaultTableModel;
 import java.sql.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-
+import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.io.*;
 
 public class registro_productos extends JFrame {
     PreparedStatement ps;
@@ -308,6 +311,7 @@ public class registro_productos extends JFrame {
             new registro_productos();
         });
     }
+
 
 
 }

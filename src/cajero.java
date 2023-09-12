@@ -18,12 +18,13 @@ public class cajero extends JFrame {
     private JButton buscarButton;
     private JButton mostrarButton;
     private JButton calcularPrecioButton;
-    private JTextField ID1;
+    private JTextField ID1Text;
     private static final String DB_URL = "jdbc:mysql://localhost/FARMACIA";
     private static final String USER = "root";
     private static final String PASS = "";
     private static final String QUERY = "SELECT * FROM PRODUCTOS";
     private int filaSeleccionada = -1;
+
 
     public cajero() {
         Mostrar();
@@ -112,8 +113,7 @@ public class cajero extends JFrame {
         pagarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose();
-                registro_factura factura = new registro_factura();
+
                 int filaSeleccionada = table1.getSelectedRow();
                 if (filaSeleccionada != -1) {
                     try {
@@ -123,6 +123,7 @@ public class cajero extends JFrame {
                         // Llama al método para actualizar las unidades
                         actualizarUnidades(idProducto, cantidadComprada);
 
+
                         // Muestra la ventana de factura
 
                     } catch (NumberFormatException ex) {
@@ -131,6 +132,13 @@ public class cajero extends JFrame {
                 } else {
                     JOptionPane.showMessageDialog(null, "Selecciona un producto de la tabla.");
                 }
+                String Precio = PrecioText.getText();
+                String Id = ID1Text.getText();
+                String NombreProd = NombreText.getText();
+                String Cantidad = CantidadText.getText();
+                dispose();
+                registro_factura factura = new registro_factura(Precio, Id, NombreProd, Cantidad );
+
             }
         });
 
@@ -145,7 +153,7 @@ public class cajero extends JFrame {
 
 
                 // Establecer los valores en los JTextField
-                ID1.setText(Id);
+                ID1Text.setText(Id);
                 NombreText.setText(Nombre);
 
             }
@@ -265,6 +273,7 @@ public class cajero extends JFrame {
             new cajero();
         });
     }
+
 
 
 }

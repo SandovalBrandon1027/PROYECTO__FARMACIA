@@ -17,7 +17,8 @@ import java.sql.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.io.*;
-
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class registro_factura extends  JFrame{
@@ -41,8 +42,18 @@ public class registro_factura extends  JFrame{
     private static final String USER = "root";
     private static final String PASS = "";
     private static final String QUERY = "SELECT * FROM USUARIOS";
+    private int facturaNumero = 1; // Variable para mantener el número de factura
 
-    public registro_factura(){
+    private String Precio;
+    private String Id;
+    private String NombreProd;
+    private String Cantidad;
+
+    public registro_factura(String Precio, String Id, String NombreProd, String Cantidad) {
+        this.Precio = Precio;
+        this.Id = Id;
+        this.NombreProd = NombreProd;
+        this.Cantidad = Cantidad;
 
 
         mostrarButton.addActionListener(new ActionListener() {
@@ -63,8 +74,6 @@ public class registro_factura extends  JFrame{
             public void actionPerformed(ActionEvent e) {
 
                 generarFacturaPDF();
-                dispose();
-                cajero probando = new cajero();
 
             }
         });
@@ -120,8 +129,7 @@ public class registro_factura extends  JFrame{
 
 
 
-    public void Mostrar(){
-        //genera columnas de la tabla DNI, Nombre, Apellido, Direccion, Email, Telefono
+    public void Mostrar() {
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("DNI");
         model.addColumn("Nombre");
@@ -129,73 +137,68 @@ public class registro_factura extends  JFrame{
         model.addColumn("Direccion");
         model.addColumn("Email");
         model.addColumn("Telefono");
-
-        // Poner las columnas en el modelo hecho en el Jtable
+        model.addColumn("ID"); // Agregar columna para ID del producto
+        model.addColumn("NombreProd"); // Agregar columna para Nombre del producto
+        model.addColumn("Unidades"); // Agregar columna para Unidades del producto
+        model.addColumn("Precio"); // Agregar columna para Precio del producto
         table1.setModel(model);
-
-        //arreglo que almnacena datos
-        String [] informacion=new String[7];//especifico el numero de columnas
-
-        try{
+        String[] informacion = new String[11];
+        try {
             Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(QUERY);
-
-            while (rs.next()){
-                //detallo la posicion de dato almacenado en arreglo, con la columna en la quebe ir
-                informacion[0]=rs.getString(1);//num de columna
-                informacion[1]=rs.getString(2);
-                informacion[2]=rs.getString(3);
-                informacion[3]=rs.getString(4);
-                informacion[4]=rs.getString(5);
-                informacion[5]=rs.getString(6);
-
-
-                // genera una fila por cada ingistro
+            while (rs.next()) {
+                informacion[0] = rs.getString(1);
+                informacion[1] = rs.getString(2);
+                informacion[2] = rs.getString(3);
+                informacion[3] = rs.getString(4);
+                informacion[4] = rs.getString(5);
+                informacion[5] = rs.getString(6);
+                // Simplemente coloca valores vacíos en las columnas de productos por ahora
+                informacion[6] = "";
+                informacion[7] = "";
+                informacion[8] = "";
+                informacion[9] = "";
                 model.addRow(informacion);
             }
         } catch (SQLException e) {
-            //throw new RuntimeException(e);
-            JOptionPane.showMessageDialog(null,"Error"+e.toString());
+            JOptionPane.showMessageDialog(null, "Error" + e.toString());
         }
     }
     public void generarFacturaPDF() {
-        // Obtén los datos de la factura
         String nombreCliente = NombreText.getText();
         String direccionCliente = DireccionText.getText();
         String emailCliente = EmailText.getText();
         String telefonoCliente = TelefonoText.getText();
-        String ID = DNIText.getText(); // Agrega aquí el ID del producto
-        String nombreProducto = CodigoText.getText(); // Agrega aquí el nombre del producto
+        String DNI = DNIText.getText();
+        String codigoFactura = CodigoText.getText();
 
 
 
+        cajero cajeroInstance = new cajero();
 
-        cajero cajeroInstance = new cajero(); // Asume que tienes una instancia de la clase cajero
-        double totalCompras = cajeroInstance.calcularTotal();
-        // Crea un documento PDF
+        String fechaActual = new SimpleDateFormat("yyyyMMddHHmmss").format(new java.util.Date());
+        String nombreFactura = "factura" + facturaNumero + "_" + fechaActual + ".pdf";
+        facturaNumero++;
+
         Document document = new Document();
         try {
-            PdfWriter.getInstance(document, new FileOutputStream("factura3.pdf"));
+            PdfWriter.getInstance(document, new FileOutputStream(nombreFactura));
             document.open();
 
-            // Configuración de fuente y estilos
             Font fontTitulo = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.BLACK);
             Font fontEncabezado = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.BLACK);
             Font fontNormal = FontFactory.getFont(FontFactory.HELVETICA, 12, BaseColor.BLACK);
 
-            // Título de la factura
             Paragraph titulo = new Paragraph("FACTURA DE COMPRA", fontTitulo);
             titulo.setAlignment(Element.ALIGN_CENTER);
             titulo.setSpacingAfter(20);
             document.add(titulo);
 
-            // Datos del cliente y detalles
             PdfPTable datosTabla = new PdfPTable(2);
             datosTabla.setWidthPercentage(100);
-            datosTabla.setWidths(new float[]{1, 3}); // Configura la proporción de columnas
+            datosTabla.setWidths(new float[]{1, 3});
 
-            // Encabezado de la tabla
             PdfPCell cellEncabezado = new PdfPCell(new Phrase("Cliente", fontEncabezado));
             cellEncabezado.setBackgroundColor(BaseColor.LIGHT_GRAY);
             cellEncabezado.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -208,20 +211,21 @@ public class registro_factura extends  JFrame{
 
             PdfPTable totalTable = new PdfPTable(2);
             totalTable.setWidthPercentage(100);
-            totalTable.setWidths(new float[]{1, 3}); // Configura la proporción de columnas
+            totalTable.setWidths(new float[]{1, 3});
 
             PdfPCell cellTotal = new PdfPCell(new Phrase("Total", fontEncabezado));
             cellTotal.setBackgroundColor(BaseColor.LIGHT_GRAY);
             cellTotal.setHorizontalAlignment(Element.ALIGN_CENTER);
             totalTable.addCell(cellTotal);
 
-            cellTotal = new PdfPCell(new Phrase(Double.toString(totalCompras), fontNormal)); // Agrega el total como texto
-            cellTotal.setHorizontalAlignment(Element.ALIGN_RIGHT);
-            totalTable.addCell(cellTotal);
+
 
             document.add(totalTable);
 
-            // Datos del cliente y detalles
+            datosTabla.addCell(new Phrase("Codigo de la factura:", fontNormal));
+            datosTabla.addCell(new Phrase(codigoFactura, fontNormal));
+            datosTabla.addCell(new Phrase("DNI del cliente:", fontNormal));
+            datosTabla.addCell(new Phrase(DNI, fontNormal));
             datosTabla.addCell(new Phrase("Nombre del Cliente:", fontNormal));
             datosTabla.addCell(new Phrase(nombreCliente, fontNormal));
             datosTabla.addCell(new Phrase("Dirección del Cliente:", fontNormal));
@@ -230,18 +234,66 @@ public class registro_factura extends  JFrame{
             datosTabla.addCell(new Phrase(emailCliente, fontNormal));
             datosTabla.addCell(new Phrase("Teléfono del Cliente:", fontNormal));
             datosTabla.addCell(new Phrase(telefonoCliente, fontNormal));
-            datosTabla.addCell(new Phrase("ID del Producto:", fontNormal));
-            datosTabla.addCell(new Phrase(ID, fontNormal));
-            datosTabla.addCell(new Phrase("Nombre del Producto:", fontNormal));
-            datosTabla.addCell(new Phrase(nombreProducto, fontNormal));
+
+
+            // Ahora, agregamos las columnas para productos
+            PdfPTable productosTable = new PdfPTable(4); // 4 columnas: ID, NombreProd, Unidades, Precio
+            productosTable.setWidthPercentage(100);
+            productosTable.setWidths(new float[]{1, 3, 1, 1});
+
+            PdfPCell cellProducto = new PdfPCell(new Phrase("ID", fontEncabezado));
+            cellProducto.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            cellProducto.setHorizontalAlignment(Element.ALIGN_CENTER);
+            productosTable.addCell(cellProducto);
+
+            cellProducto = new PdfPCell(new Phrase(Id, fontEncabezado));
+            cellProducto.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            cellProducto.setHorizontalAlignment(Element.ALIGN_CENTER);
+            productosTable.addCell(cellProducto);
+
+            cellProducto = new PdfPCell(new Phrase("Nombre del Producto", fontEncabezado));
+            cellProducto.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            cellProducto.setHorizontalAlignment(Element.ALIGN_CENTER);
+            productosTable.addCell(cellProducto);
+
+            cellProducto = new PdfPCell(new Phrase(NombreProd, fontEncabezado));
+            cellProducto.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            cellProducto.setHorizontalAlignment(Element.ALIGN_CENTER);
+            productosTable.addCell(cellProducto);
+
+            cellProducto = new PdfPCell(new Phrase("Unidades", fontEncabezado));
+            cellProducto.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            cellProducto.setHorizontalAlignment(Element.ALIGN_CENTER);
+            productosTable.addCell(cellProducto);
+
+            cellProducto = new PdfPCell(new Phrase(Cantidad, fontEncabezado));
+            cellProducto.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            cellProducto.setHorizontalAlignment(Element.ALIGN_CENTER);
+            productosTable.addCell(cellProducto);
+
+
+            cellProducto = new PdfPCell(new Phrase("Total", fontEncabezado));
+            cellProducto.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            cellProducto.setHorizontalAlignment(Element.ALIGN_CENTER);
+            productosTable.addCell(cellProducto);
+
+            cellProducto = new PdfPCell(new Phrase(Precio, fontEncabezado));
+            cellProducto.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            cellProducto.setHorizontalAlignment(Element.ALIGN_CENTER);
+            productosTable.addCell(cellProducto);
+
 
             document.add(datosTabla);
+            document.add(productosTable);
 
-            // Cierra el documento
+            // Agregar fecha y hora al final de la factura
+            Paragraph fechaHora = new Paragraph("Fecha y hora de la factura: " + new Date().toString());
+            fechaHora.setAlignment(Element.ALIGN_RIGHT);
+            document.add(fechaHora);
+
             document.close();
 
-            JOptionPane.showMessageDialog(null, "Factura generada con éxito.");
-
+            JOptionPane.showMessageDialog(null, "Factura generada con éxito: " + nombreFactura);
         } catch (DocumentException | FileNotFoundException ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error al generar la factura.");
@@ -303,8 +355,7 @@ public class registro_factura extends  JFrame{
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            new registro_factura();
         });
-
     }
+
 }

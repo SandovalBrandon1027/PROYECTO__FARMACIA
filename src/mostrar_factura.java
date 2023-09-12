@@ -1,8 +1,15 @@
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileOutputStream;
 import java.sql.*;
+import java.util.Date;
 
 public class mostrar_factura extends JFrame {
     private JPanel mostrar_factura;
@@ -21,6 +28,8 @@ public class mostrar_factura extends JFrame {
     private static final String USER = "root";
     private static final String PASS = "";
     private static final String QUERY = "SELECT * FROM FACTURAS"; // Cambia "tabla_nombre"
+
+
 
     public mostrar_factura(){
 
@@ -62,6 +71,12 @@ public class mostrar_factura extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 
+            }
+        });
+        facturaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                generarFacturaPDF1();
             }
         });
     }
@@ -118,6 +133,62 @@ public class mostrar_factura extends JFrame {
             JOptionPane.showMessageDialog(null,"Error"+e.toString());
         }
     }
+    public void generarFacturaPDF1() {
+        // Crear un documento PDF
+        Document document = new Document();
+        try {
+            // Nombre del archivo PDF (puedes cambiarlo según tus necesidades)
+            String nombreFactura = "factura.pdf";
+
+            PdfWriter.getInstance(document, new FileOutputStream(nombreFactura));
+            document.open();
+
+            // Agregar título
+            Font fontTitulo = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.BLACK);
+            Paragraph titulo = new Paragraph("FACTURA", fontTitulo);
+            titulo.setAlignment(Element.ALIGN_CENTER);
+            document.add(titulo);
+
+// Agregar espacio en blanco
+            Paragraph espacioEnBlanco = new Paragraph(" "); // Párrafo vacío
+            document.add(espacioEnBlanco);
+
+// Agregar tabla para los datos de la factura
+            PdfPTable tablaFactura = new PdfPTable(table1.getColumnCount());
+            tablaFactura.setWidthPercentage(100);
+
+
+            // Agregar encabezados de columna a la tabla
+            for (int i = 0; i < table1.getColumnCount(); i++) {
+                PdfPCell cell = new PdfPCell(new Phrase(table1.getColumnName(i)));
+                cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                tablaFactura.addCell(cell);
+            }
+
+            // Agregar datos de la tabla al PDF
+            for (int row = 0; row < table1.getRowCount(); row++) {
+                for (int col = 0; col < table1.getColumnCount(); col++) {
+                    tablaFactura.addCell(table1.getValueAt(row, col).toString());
+                }
+            }
+
+            document.add(tablaFactura);
+
+            // Agregar fecha y hora al final de la factura
+            Paragraph fechaHora = new Paragraph("Fecha y hora de la factura: " + new Date().toString());
+            fechaHora.setAlignment(Element.ALIGN_RIGHT);
+            document.add(fechaHora);
+
+            document.close();
+
+            JOptionPane.showMessageDialog(null, "Factura generada con éxito: " + nombreFactura);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al generar la factura.");
+        }
+    }
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             new mostrar_factura();
