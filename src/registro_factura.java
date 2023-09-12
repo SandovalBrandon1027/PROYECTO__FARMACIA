@@ -4,6 +4,7 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -15,6 +16,8 @@ import java.io.FileOutputStream;
 import java.sql.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.io.*;
+
 
 
 public class registro_factura extends  JFrame{
@@ -245,6 +248,52 @@ public class registro_factura extends  JFrame{
         }
     }
 
+
+
+    public class ContadorFacturas {
+        private static final String archivoFactura = "numero_factura.txt";
+
+        // Método para obtener el número de factura actual
+        public static int obtenerNumeroFactura() {
+            int numeroFactura = leerNumeroFactura(archivoFactura);
+            return numeroFactura;
+        }
+
+        // Método para incrementar y guardar el número de factura
+        public static void incrementarNumeroFactura() {
+            int numeroFactura = leerNumeroFactura(archivoFactura);
+            numeroFactura++;
+            guardarNumeroFactura(archivoFactura, numeroFactura);
+        }
+
+        // Método para leer el número de factura actual desde el archivo
+        private static int leerNumeroFactura(String archivo) {
+            try {
+                BufferedReader br = new BufferedReader(new FileReader(archivo));
+                String linea = br.readLine();
+                br.close();
+                if (linea != null) {
+                    return Integer.parseInt(linea);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            // Si el archivo no existe o hay un error, devuelve 0
+            return 0;
+        }
+
+        // Método para guardar el número de factura actual en el archivo
+        private static void guardarNumeroFactura(String archivo, int numeroFactura) {
+            try {
+                BufferedWriter bw = new BufferedWriter(new FileWriter(archivo));
+                bw.write(String.valueOf(numeroFactura));
+                bw.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 
 
