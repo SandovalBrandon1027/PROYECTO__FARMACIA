@@ -238,10 +238,7 @@ public class registro_factura extends  JFrame{
         model.addColumn("Direccion");
         model.addColumn("Email");
         model.addColumn("Telefono");
-        model.addColumn("ID"); // Agregar columna para ID del producto
-        model.addColumn("NombreProd"); // Agregar columna para Nombre del producto
-        model.addColumn("Unidades"); // Agregar columna para Unidades del producto
-        model.addColumn("Precio"); // Agregar columna para Precio del producto
+
         table1.setModel(model);
         String[] informacion = new String[11];
         try {
