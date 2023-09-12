@@ -54,8 +54,30 @@ Aqui debemos llenar los datos del cliente para realizarle su factura
 
 ![imagen](https://github.com/SandovalBrandon1027/PROYECTO__FARMACIA/assets/117743657/3e71b016-190d-476d-80b3-5095eb08c12e)
 
-3.2.
+3.2.Verificacion de crecendiales en nuestro login <br>
 
+![imagen](https://github.com/SandovalBrandon1027/PROYECTO__FARMACIA/assets/117743657/fcfae006-f03e-4cfc-a71c-7bbcadff31b8)
+
+3.3.Creacion de nuestras tablas para una mejor presentacion de nuestros registros <br>
+
+![imagen](https://github.com/SandovalBrandon1027/PROYECTO__FARMACIA/assets/117743657/b7516ce3-f891-4612-aa7c-4cd8cfe9845d)
+
+
+3.4.Esta parte de nuestro codigo sirve para seleccionar los productos y usuarios me explico damos click sobre algun regsitro y estos se ven reflejados en nuestros JTextField <br>
+
+![imagen](https://github.com/SandovalBrandon1027/PROYECTO__FARMACIA/assets/117743657/9372e118-5114-4b81-814c-acbbfcd7db2f)
+
+3.5.Y aqui tenemos el codigo para generar la factura con todos lo atributos que necesitamos. <br>
+
+![imagen](https://github.com/SandovalBrandon1027/PROYECTO__FARMACIA/assets/117743657/0b9773bb-cc8f-495d-a3ac-e2111860a03d)
+
+![imagen](https://github.com/SandovalBrandon1027/PROYECTO__FARMACIA/assets/117743657/bfd946be-1d32-4c8a-8766-f47f9739faab)
+
+
+![imagen](https://github.com/SandovalBrandon1027/PROYECTO__FARMACIA/assets/117743657/702aae65-388c-4b27-bf51-276cfb9abc56)
+
+
+![imagen](https://github.com/SandovalBrandon1027/PROYECTO__FARMACIA/assets/117743657/51e9648f-98fe-470d-9c39-c24731be6145)
 
 
 
