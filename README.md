@@ -87,6 +87,14 @@ Aqui debemos llenar los datos del cliente para realizarle su factura
 La libreria itextpdf, nos sirve para generar la factura. <br>
 La libreria mysql-connector, nos sirve para conectar nuestras bases de datos a nuestro proyecto y asi poder maniparlos mediante codigo.
 
+Vídeo realizado sobre el manual de usuario:
+
+https://youtu.be/8zrrnv0OVN0
+
+
+Muchas gracias por su atención
+
+
 
 
 
