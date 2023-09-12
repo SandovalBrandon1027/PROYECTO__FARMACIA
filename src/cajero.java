@@ -8,16 +8,16 @@ import java.text.DecimalFormat;
 
 public class cajero extends JFrame {
     private JPanel interfaz_cajero;
-    private JTextField NombreText;
-    private JTextField CantidadText;
-    private JTextField PrecioText;
+    public JTextField NombreText;
+    public JTextField CantidadText;
+    public JTextField PrecioText;
     private JButton pagarButton;
     private JButton regresarButton;
     private JTable table1;
     private JButton buscarButton;
     private JButton mostrarButton;
     private JButton calcularPrecioButton;
-    private JTextField ID1Text;
+    public JTextField ID1Text;
     private static final String DB_URL = "jdbc:mysql://localhost/FARMACIA";
     private static final String USER = "root";
     private static final String PASS = "";
@@ -150,6 +150,7 @@ public class cajero extends JFrame {
         });
 
     }
+
 
 
     public void actualizarUnidades(int idProducto, int cantidadComprada) {

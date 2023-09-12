@@ -75,6 +75,14 @@ public class registro_factura extends  JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                boolean resultado = guardarFacturaEnBaseDeDatos();
+
+                // Muestra un mensaje de confirmación
+                if (resultado) {
+                    JOptionPane.showMessageDialog(null, "Factura guardada exitosamente.");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al guardar la factura.");
+                }
 
                 generarFacturaPDF();
                 Component source = (Component) e.getSource();
@@ -175,6 +183,43 @@ public class registro_factura extends  JFrame{
             }
         });
     }
+    private boolean guardarFacturaEnBaseDeDatos() {
+        try {
+            // Establece la conexión con la base de datos
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/FARMACIA", "root", "");
+
+            // Crea la sentencia SQL para insertar un nuevo registro en la tabla FACTURAS
+            String sql = "INSERT INTO FACTURAS (DNI, Nombre, Apellido, Direccion, Email, Telefono, ID, NombreProd, Unidades, Precio) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+            // Prepara la sentencia SQL
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, DNIText.getText());
+            pstmt.setString(2, NombreText.getText());
+            pstmt.setString(3, ApellidoText.getText());
+            pstmt.setString(4, DireccionText.getText());
+            pstmt.setString(5, EmailText.getText());
+            pstmt.setString(6, TelefonoText.getText());
+            pstmt.setString(7, Id);
+            pstmt.setString(8, NombreProd);
+            pstmt.setString(9, Cantidad);
+            pstmt.setString(10, Precio);
+
+            // Ejecuta la inserción
+            int rowsAffected = pstmt.executeUpdate();
+
+            // Cierra la conexión y el PreparedStatement
+            pstmt.close();
+            conn.close();
+
+            // Comprueba si se guardó la factura correctamente
+            return rowsAffected > 0;
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
     private boolean actualizarDatosEnBaseDeDatos(String dni) {
         try {
             // Establece la conexión con la base de datos
