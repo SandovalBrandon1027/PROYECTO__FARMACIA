@@ -58,7 +58,10 @@ public class registro_factura extends  JFrame{
         facturaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                generarFacturaPDF();
+
+                dispose();
+                cajero probando = new cajero();
+
             }
         });
 

@@ -1,8 +1,10 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
+import java.text.DecimalFormat;
 
 public class cajero extends JFrame {
     private JPanel interfaz_cajero;
@@ -16,29 +18,36 @@ public class cajero extends JFrame {
     private JButton buscarButton;
     private JButton mostrarButton;
     private JButton calcularPrecioButton;
+    private JTextField ID1;
     private static final String DB_URL = "jdbc:mysql://localhost/FARMACIA";
     private static final String USER = "root";
     private static final String PASS = "";
     private static final String QUERY = "SELECT * FROM PRODUCTOS";
+    private int filaSeleccionada = -1;
 
     public cajero() {
         Mostrar();
         setTitle("Farmacia Estelar");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Cierra la aplicación al cerrar este formulario
-        setSize(900, 500); // Tamaño del formulario
-        setLocationRelativeTo(null); // Centrar en la pantalla
-        setContentPane(interfaz_cajero); // Establecer el panel como contenido
+        setContentPane(interfaz_cajero);
+        setMinimumSize(new Dimension(700, 500));
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
+
+
 
         // Aquí puedes agregar más componentes y configuraciones específicas para el formulario del administrador
 
-        setVisible(true); // Mostrar el formulario
         regresarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose();
+                dispose();  // Cierra la instancia anterior
                 login login40 = new login();
             }
         });
+
+
         buscarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -78,7 +87,12 @@ public class cajero extends JFrame {
                             double cantidad = Double.parseDouble(cantidadStr);
                             double precio = Double.parseDouble(table1.getValueAt(filaSeleccionada, 3).toString());
                             double total = cantidad * precio;
-                            PrecioText.setText(String.valueOf(total));
+
+                            // Formatear el precio a dos cifras decimales
+                            DecimalFormat df = new DecimalFormat("#.##");
+                            String precioFormateado = df.format(total);
+
+                            PrecioText.setText(precioFormateado);
                         } catch (NumberFormatException ex) {
                             JOptionPane.showMessageDialog(null, "Ingresa una cantidad válida.");
                         }
@@ -91,12 +105,15 @@ public class cajero extends JFrame {
             }
         });
 
+
+
+        // ...
+
         pagarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
                 registro_factura factura = new registro_factura();
-                // Dentro del ActionListener del botón "Pagar"
                 int filaSeleccionada = table1.getSelectedRow();
                 if (filaSeleccionada != -1) {
                     try {
@@ -106,18 +123,37 @@ public class cajero extends JFrame {
                         // Llama al método para actualizar las unidades
                         actualizarUnidades(idProducto, cantidadComprada);
 
-                        // Luego, procede a crear la factura y realizar otras operaciones necesarias.
+                        // Muestra la ventana de factura
+
                     } catch (NumberFormatException ex) {
                         JOptionPane.showMessageDialog(null, "Ingresa una cantidad válida.");
                     }
                 } else {
                     JOptionPane.showMessageDialog(null, "Selecciona un producto de la tabla.");
                 }
+            }
+        });
+
+        table1.getSelectionModel().addListSelectionListener(e -> {
+            filaSeleccionada = table1.getSelectedRow();
+
+            // Verificar si se ha seleccionado una fila
+            if (filaSeleccionada >= 0) {
+                // Obtener los valores de la fila seleccionada
+                String Id = table1.getValueAt(filaSeleccionada, 0).toString();
+                String Nombre = table1.getValueAt(filaSeleccionada, 1).toString();
+
+
+                // Establecer los valores en los JTextField
+                ID1.setText(Id);
+                NombreText.setText(Nombre);
 
             }
-
         });
+
     }
+
+
     public void actualizarUnidades(int idProducto, int cantidadComprada) {
         String updateQuery = "UPDATE productos SET Unidades = Unidades - ? WHERE ID = ?";
 
